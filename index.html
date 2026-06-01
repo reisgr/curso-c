@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Básico de Linguagem C</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header/Navbar */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        nav a {
+            margin-left: 30px;
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero .subtitle {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-3px);
+        }
+
+        /* Features */
+        .container {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #666;
+        }
+
+        /* Módulos */
+        .modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 80px;
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .module-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .module-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .module-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .module-title {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .module-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .module-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .module-topics {
+            list-style: none;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .module-topics li {
+            padding: 8px 0;
+            color: #666;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .module-topics li:before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .module-link {
+            background: #667eea;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            font-weight: bold;
+            margin-top: auto;
+        }
+
+        .module-link:hover {
+            background: #764ba2;
+        }
+
+        /* Requirement Section */
+        .requirements {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 80px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .requirements h2 {
+            color: #667eea;
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .req-item {
+            text-align: center;
+        }
+
+        .req-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .req-item h3 {
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 80px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats h2 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        /* Getting Started */
+        .getting-started {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 80px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .getting-started h2 {
+            color: #667eea;
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .step {
+            display: flex;
+            gap: 20px;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            color: #764ba2;
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #667eea;
+        }
+
+        .footer-text {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1em;
+            }
+
+            .section-title {
+                font-size: 1.8em;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            header {
+                text-align: center;
+            }
+
+            .header-container {
+                flex-direction: column;
+            }
+
+            nav a {
+                margin: 10px 0;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card,
+        .module-card,
+        .step {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .feature-card {
+            animation-delay: 0.1s;
+        }
+
+        .hero {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .badge-success {
+            background: #4caf50;
+        }
+
+        .badge-warning {
+            background: #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <span>📚</span> Curso C
+            </div>
+            <nav>
+                <a href="#modulos">Módulos</a>
+                <a href="#requisitos">Requisitos</a>
+                <a href="#comece">Comece Agora</a>
+                <a href="https://github.com/reisgr/curso-c" target="_blank">GitHub</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>🎓 Aprenda Linguagem C</h1>
+        <p class="subtitle">Curso básico completo com 5 módulos, 25+ exercícios e exemplos práticos</p>
+        
+        <div class="hero-buttons">
+            <a href="#modulos" class="btn btn-primary">Começar Agora →</a>
+            <a href="https://github.com/reisgr/curso-c" class="btn btn-secondary" target="_blank">Ver no GitHub</a>
+        </div>
+
+        <div style="margin-top: 40px; font-size: 4em; display: flex; justify-content: center; gap: 30px;">
+            <div style="text-align: center;">
+                <div>📖</div>
+                <div style="font-size: 0.5em; margin-top: 5px;">5 Módulos</div>
+            </div>
+            <div style="text-align: center;">
+                <div>✏️</div>
+                <div style="font-size: 0.5em; margin-top: 5px;">25+ Exercícios</div>
+            </div>
+            <div style="text-align: center;">
+                <div>💻</div>
+                <div style="font-size: 0.5em; margin-top: 5px;">30+ Exemplos</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features -->
+    <div class="container">
+        <h2 class="section-title">✨ Por que escolher este curso?</h2>
+        
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Estruturado</h3>
+                <p>Conteúdo organizado em 5 módulos progressivos, do básico ao intermediário</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💡</div>
+                <h3>Prático</h3>
+                <p>Mais de 30 exemplos de código prontos para compilar e estudar</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🖥️</div>
+                <h3>Interativo</h3>
+                <p>Interface moderna, responsiva e fácil de navegar em qualquer dispositivo</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">✅</div>
+                <h3>Com Exercícios</h3>
+                <p>25+ exercícios práticos para consolidar o aprendizado em cada módulo</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Responsivo</h3>
+                <p>Funciona perfeitamente em desktop, tablet e dispositivos móveis</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>Gratuito</h3>
+                <p>Completamente gratuito e disponível no GitHub para estudar quando quiser</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modules Section -->
+    <div class="container" id="modulos">
+        <h2 class="section-title">📚 Módulos do Curso</h2>
+        
+        <div class="modules">
+            <!-- Módulo 1 -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-icon">🚀</div>
+                    <div class="module-number">01</div>
+                    <div class="module-title">Introdução</div>
+                </div>
+                <div class="module-body">
+                    <ul class="module-topics">
+                        <li>O que é C</li>
+                        <li>Instalação e configuração</li>
+                        <li>Primeiro programa</li>
+                        <li>Estrutura básica</li>
+                    </ul>
+                    <a href="modulo-01-introducao/index.html" class="module-link">Acessar Módulo →</a>
+                </div>
+            </div>
+
+            <!-- Módulo 2 -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-icon">🔢</div>
+                    <div class="module-number">02</div>
+                    <div class="module-title">Conceitos Fundamentais</div>
+                </div>
+                <div class="module-body">
+                    <ul class="module-topics">
+                        <li>Variáveis e tipos</li>
+                        <li>Operadores</li>
+                        <li>Entrada e saída</li>
+                        <li>Conversões</li>
+                    </ul>
+                    <a href="modulo-02-conceitos-fundamentais/index.html" class="module-link">Acessar Módulo →</a>
+                </div>
+            </div>
+
+            <!-- Módulo 3 -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-icon">🔀</div>
+                    <div class="module-number">03</div>
+                    <div class="module-title">Estruturas de Controle</div>
+                </div>
+                <div class="module-body">
+                    <ul class="module-topics">
+                        <li>If e else</li>
+                        <li>Switch case</li>
+                        <li>Operador ternário</li>
+                        <li>Lógica booleana</li>
+                    </ul>
+                    <a href="modulo-03-estruturas-controle/index.html" class="module-link">Acessar Módulo →</a>
+                </div>
+            </div>
+
+            <!-- Módulo 4 -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-icon">🔁</div>
+                    <div class="module-number">04</div>
+                    <div class="module-title">Laços de Repetição</div>
+                </div>
+                <div class="module-body">
+                    <ul class="module-topics">
+                        <li>Laço for</li>
+                        <li>Laço while</li>
+                        <li>Laço do-while</li>
+                        <li>Break e continue</li>
+                    </ul>
+                    <a href="modulo-04-lacos-repeticao/index.html" class="module-link">Acessar Módulo →</a>
+                </div>
+            </div>
+
+            <!-- Módulo 5 -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-icon">⚙️</div>
+                    <div class="module-number">05</div>
+                    <div class="module-title">Funções <span class="badge badge-success">FINAL</span></div>
+                </div>
+                <div class="module-body">
+                    <ul class="module-topics">
+                        <li>Definição e uso</li>
+                        <li>Parâmetros</li>
+                        <li>Valores de retorno</li>
+                        <li>Recursão</li>
+                    </ul>
+                    <a href="modulo-05-funcoes/index.html" class="module-link">Acessar Módulo →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Requirements Section -->
+    <div class="container" id="requisitos">
+        <div class="requirements">
+            <h2>📋 Requisitos</h2>
+            <div class="requirements-grid">
+                <div class="req-item">
+                    <div class="req-icon">💻</div>
+                    <h3>Computador</h3>
+                    <p>Qualquer computador com Windows, Mac ou Linux</p>
+                </div>
+
+                <div class="req-item">
+                    <div class="req-icon">💾</div>
+                    <h3>Compilador C</h3>
+                    <p>GCC, Clang ou qualquer compilador C ANSI</p>
+                </div>
+
+                <div class="req-item">
+                    <div class="req-icon">✏️</div>
+                    <h3>Editor de Texto</h3>
+                    <p>Visual Studio Code, Sublime ou qualquer editor</p>
+                </div>
+
+                <div class="req-item">
+                    <div class="req-icon">🎓</div>
+                    <h3>Vontade de Aprender</h3>
+                    <p>Dedicação e prática constante para dominar a linguagem</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="container">
+        <div class="stats">
+            <h2>📊 Números do Curso</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Módulos Completos</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Exercícios Práticos</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-number">30+</div>
+                    <div class="stat-label">Exemplos de Código</div>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Gratuito</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Getting Started Section -->
+    <div class="container" id="comece">
+        <div class="getting-started">
+            <h2>🚀 Como Começar?</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Escolha um Módulo</h3>
+                        <p>Comece pelo Módulo 1 e siga a progressão dos tópicos</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Leia a Teoria</h3>
+                        <p>Estude os conceitos e exemplos fornecidos</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Execute os Exemplos</h3>
+                        <p>Copie e rode os códigos em seu compilador C</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Resolva Exercícios</h3>
+                        <p>Pratique com os 25+ exercícios propostos</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Domine o Módulo</h3>
+                        <p>Quando se sentir confiante, avance para o próximo</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h3>Parabéns! 🎓</h3>
+                        <p>Você completou o curso básico de C</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>📚 Curso Básico de Linguagem C</h3>
+            
+            <div class="footer-links">
+                <a href="#modulos">Módulos</a>
+                <a href="https://github.com/reisgr/curso-c" target="_blank">GitHub</a>
+                <a href="https://www.cprogramming.com/" target="_blank">C Programming</a>
+                <a href="https://en.cppreference.com/w/c" target="_blank">C Reference</a>
+            </div>
+
+            <p class="footer-text">
+                © 2026 | Curso Básico de Linguagem C | Criado para iniciantes
+            </p>
+            <p class="footer-text" style="margin-top: 15px; opacity: 0.7;">
+                ⭐ Se gostou, dê uma estrela no GitHub!
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll para links âncora
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animação ao scrollar
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .module-card, .stat-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
