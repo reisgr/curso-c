@@ -45,6 +45,26 @@
             font-size: 1.1em;
         }
 
+        .breadcrumb {
+            background: white;
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: #764ba2;
+        }
+
         nav {
             background: white;
             border-radius: 10px;
@@ -225,6 +245,7 @@
             gap: 10px;
             margin-top: 30px;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -234,6 +255,8 @@
             cursor: pointer;
             font-size: 1em;
             transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .btn-primary {
@@ -264,6 +287,16 @@
             padding: 20px;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        footer a:hover {
+            color: #764ba2;
         }
 
         .progress-bar {
@@ -302,11 +335,23 @@
                 font-size: 0.9em;
                 padding: 15px;
             }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="breadcrumb">
+            <a href="../../index.html">📚 Início</a> > Módulo 1: Introdução
+        </div>
+
         <header>
             <h1>📚 Módulo 1: Introdução à Linguagem C</h1>
             <p>Aprenda os fundamentos da linguagem C de forma interativa</p>
@@ -624,13 +669,16 @@ void saudar() {
 
                 <div class="button-group">
                     <button class="btn btn-primary" onclick="completarModulo()">✅ Marcar como Concluído</button>
-                    <button class="btn btn-secondary" onclick="irProximoModulo()">Próximo Módulo →</button>
+                    <a href="../modulo-02-conceitos-fundamentais/index.html" class="btn btn-secondary">Próximo Módulo →</a>
                 </div>
             </div>
         </div>
 
         <footer>
             <p><strong>Curso Básico de Linguagem C</strong> | Módulo 1: Introdução</p>
+            <p style="margin-top: 10px;">
+                <a href="../../index.html">← Voltar para Página Principal</a>
+            </p>
             <p style="color: #999; margin-top: 10px; font-size: 0.9em;">Continue estudando! 🚀</p>
         </footer>
     </div>
@@ -671,11 +719,6 @@ void saudar() {
         function completarModulo() {
             alert('✅ Parabéns! Você completou o Módulo 1!\n\nAgora você está pronto para o Módulo 2: Conceitos Fundamentais');
             localStorage.setItem('modulo1-concluido', 'true');
-        }
-
-        // Função para ir para o próximo módulo
-        function irProximoModulo() {
-            alert('🚀 Redirecionando para o Módulo 2...\n(Em breve disponível)');
         }
 
         // Inicializar progress bar
