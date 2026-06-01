@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 2: Conceitos Fundamentais</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        nav {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        nav button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        nav button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        nav button.active {
+            background: #764ba2;
+            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+        }
+
+        .content {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            line-height: 1.5;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        pre code {
+            color: inherit;
+            background: none;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+
+        .exercise {
+            background: #f0f7ff;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .exercise h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .tip {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .tip strong {
+            color: #ff9800;
+        }
+
+        .summary {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .summary ul {
+            margin-left: 20px;
+        }
+
+        .summary li {
+            margin-bottom: 8px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        footer {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 5px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .type-box {
+            background: #f9f9f9;
+            border: 2px solid #667eea;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .type-box strong {
+            color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav button {
+                width: 100%;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            pre {
+                font-size: 0.9em;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Módulo 2: Conceitos Fundamentais</h1>
+            <p>Aprenda sobre variáveis, tipos de dados e operadores</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+        </header>
+
+        <nav>
+            <ul>
+                <li><button class="nav-btn active" data-section="variaveis">2.1 Variáveis</button></li>
+                <li><button class="nav-btn" data-section="tipos">2.2 Tipos de Dados</button></li>
+                <li><button class="nav-btn" data-section="operadores">2.3 Operadores</button></li>
+                <li><button class="nav-btn" data-section="entrada-saida">2.4 Entrada/Saída</button></li>
+                <li><button class="nav-btn" data-section="exercicios">📝 Exercícios</button></li>
+                <li><button class="nav-btn" data-section="resumo">✅ Resumo</button></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <!-- Seção 2.1: Variáveis -->
+            <div id="variaveis" class="section active">
+                <h2>2.1 Variáveis e Tipos de Dados</h2>
+
+                <h3>💾 O que é uma Variável?</h3>
+                <p>
+                    Uma variável é um espaço na memória do computador onde podemos armazenar dados. 
+                    Cada variável tem um <strong>nome</strong>, um <strong>tipo</strong> e um <strong>valor</strong>.
+                </p>
+
+                <p>
+                    Pense em uma variável como uma caixa rotulada onde guardamos algo. A etiqueta é o nome, 
+                    o tipo de coisa que guardamos é o tipo de dado, e o que está dentro é o valor.
+                </p>
+
+                <h3>📝 Declarar uma Variável</h3>
+                <p>A sintaxe básica para declarar uma variável é:</p>
+                <pre><code>tipo nome_da_variavel;</code></pre>
+
+                <p><strong>Exemplos:</strong></p>
+                <pre><code>int idade;
+float altura;
+char letra;</code></pre>
+
+                <h3>🎯 Declarar e Inicializar</h3>
+                <p>Podemos declarar e atribuir um valor na mesma linha:</p>
+                <pre><code>int idade = 25;
+float altura = 1.75;
+char letra = 'A';</code></pre>
+
+                <h3>📋 Regras para Nomes de Variáveis</h3>
+                <ul>
+                    <li>Começar com letra ou underscore (_)</li>
+                    <li>Conter apenas letras, números e underscore</li>
+                    <li>NÃO podem conter espaços</li>
+                    <li>NÃO podem ser palavras-chave do C (int, float, if, etc.)</li>
+                    <li>C distingue maiúsculas de minúsculas (idade ≠ Idade)</li>
+                </ul>
+
+                <p><strong>Exemplos válidos:</strong> <code>idade</code>, <code>_peso</code>, <code>altura2</code>, <code>minha_idade</code></p>
+                <p><strong>Exemplos inválidos:</strong> <code>2altura</code>, <code>minha idade</code>, <code>int</code> (palavra-chave)</p>
+
+                <div class="tip">
+                    <strong>💡 Dica de Nomeação:</strong> Use nomes descritivos e em snake_case (separado por underscore). 
+                    Por exemplo: <code>idade_usuario</code> é melhor que <code>i</code> ou <code>a</code>.
+                </div>
+
+                <h3>🔄 Atribuição de Valores</h3>
+                <pre><code>int numero;        // Declaração
+numero = 42;       // Atribuição
+numero = 100;      // Pode ser alterado (reatribuição)</code></pre>
+            </div>
+
+            <!-- Seção 2.2: Tipos de Dados -->
+            <div id="tipos" class="section">
+                <h2>2.2 Tipos de Dados Primitivos</h2>
+
+                <p>C possui vários tipos de dados primitivos. Os mais comuns são:</p>
+
+                <h3>📊 Tabela de Tipos</h3>
+                <table>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Tamanho</th>
+                        <th>Intervalo</th>
+                        <th>Exemplo</th>
+                    </tr>
+                    <tr>
+                        <td><strong>int</strong></td>
+                        <td>4 bytes</td>
+                        <td>-2.147.483.648 a 2.147.483.647</td>
+                        <td><code>int idade = 25;</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>float</strong></td>
+                        <td>4 bytes</td>
+                        <td>±3.4 × 10<sup>38</sup></td>
+                        <td><code>float altura = 1.75;</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>double</strong></td>
+                        <td>8 bytes</td>
+                        <td>±1.7 × 10<sup>308</sup></td>
+                        <td><code>double pi = 3.14159265;</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>char</strong></td>
+                        <td>1 byte</td>
+                        <td>-128 a 127</td>
+                        <td><code>char letra = 'A';</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>short</strong></td>
+                        <td>2 bytes</td>
+                        <td>-32.768 a 32.767</td>
+                        <td><code>short numero = 100;</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>long</strong></td>
+                        <td>8 bytes</td>
+                        <td>Muito grande</td>
+                        <td><code>long numero = 1000000L;</code></td>
+                    </tr>
+                </table>
+
+                <h3>🔤 Tipo int (Inteiro)</h3>
+                <p>Armazena números inteiros (sem casas decimais):</p>
+                <pre><code>int idade = 25;
+int temperatura = -10;
+int resultado = 0;</code></pre>
+
+                <h3>🔢 Tipo float (Ponto Flutuante)</h3>
+                <p>Armazena números com casas decimais (precisão simples):</p>
+                <pre><code>float altura = 1.75;
+float peso = 72.5;
+float pi = 3.14;</code></pre>
+
+                <div class="tip">
+                    <strong>⚠️ Atenção:</strong> Em C, use ponto (.) como separador decimal, não vírgula!
+                </div>
+
+                <h3>📈 Tipo double (Ponto Flutuante Dupla Precisão)</h3>
+                <p>Como float, mas com mais precisão (8 bytes):</p>
+                <pre><code>double pi_preciso = 3.14159265359;
+double distancia = 1234567.89;</code></pre>
+
+                <h3>🔤 Tipo char (Caractere)</h3>
+                <p>Armazena um único caractere entre aspas simples:</p>
+                <pre><code>char letra = 'A';
+char simbolo = '@';
+char numero = '7';  // '7' é diferente de 7!</code></pre>
+
+                <div class="type-box">
+                    <strong>Importante:</strong> 
+                    <ul style="margin-top: 10px;">
+                        <li><code>'A'</code> (entre aspas simples) é um char</li>
+                        <li><code>65</code> é um inteiro (valor ASCII do 'A')</li>
+                        <li><code>"A"</code> (entre aspas duplas) é uma string</li>
+                    </ul>
+                </div>
+
+                <h3>📏 Verificar Tamanho</h3>
+                <p>Use o operador <code>sizeof</code> para saber quantos bytes cada tipo ocupa:</p>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    printf("int: %lu bytes\n", sizeof(int));
+    printf("float: %lu bytes\n", sizeof(float));
+    printf("double: %lu bytes\n", sizeof(double));
+    printf("char: %lu bytes\n", sizeof(char));
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Saída esperada:</strong></p>
+                <pre><code>int: 4 bytes
+float: 4 bytes
+double: 8 bytes
+char: 1 byte</code></pre>
+            </div>
+
+            <!-- Seção 2.3: Operadores -->
+            <div id="operadores" class="section">
+                <h2>2.3 Operadores</h2>
+
+                <h3>➕ Operadores Aritméticos</h3>
+                <table>
+                    <tr>
+                        <th>Operador</th>
+                        <th>Descrição</th>
+                        <th>Exemplo</th>
+                        <th>Resultado</th>
+                    </tr>
+                    <tr>
+                        <td><code>+</code></td>
+                        <td>Adição</td>
+                        <td><code>10 + 5</code></td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td><code>-</code></td>
+                        <td>Subtração</td>
+                        <td><code>10 - 5</code></td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td><code>*</code></td>
+                        <td>Multiplicação</td>
+                        <td><code>10 * 5</code></td>
+                        <td>50</td>
+                    </tr>
+                    <tr>
+                        <td><code>/</code></td>
+                        <td>Divisão</td>
+                        <td><code>10 / 5</code></td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td><code>%</code></td>
+                        <td>Módulo (resto)</td>
+                        <td><code>10 % 3</code></td>
+                        <td>1</td>
+                    </tr>
+                </table>
+
+                <p><strong>Exemplo:</strong></p>
+                <pre><code>int a = 10, b = 3;
+int soma = a + b;        // 13
+int diferenca = a - b;   // 7
+int produto = a * b;     // 30
+int quociente = a / b;   // 3
+int resto = a % b;       // 1</code></pre>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> O operador <code>%</code> (módulo) é muito útil para verificar se um número é par ou ímpar!
+                </div>
+
+                <h3>🔗 Operadores de Atribuição</h3>
+                <table>
+                    <tr>
+                        <th>Operador</th>
+                        <th>Equivalente a</th>
+                        <th>Exemplo</th>
+                    </tr>
+                    <tr>
+                        <td><code>=</code></td>
+                        <td>Atribuição simples</td>
+                        <td><code>a = 5;</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>+=</code></td>
+                        <td><code>a = a + b</code></td>
+                        <td><code>a += 5;</code> (a = a + 5)</td>
+                    </tr>
+                    <tr>
+                        <td><code>-=</code></td>
+                        <td><code>a = a - b</code></td>
+                        <td><code>a -= 5;</code> (a = a - 5)</td>
+                    </tr>
+                    <tr>
+                        <td><code>*=</code></td>
+                        <td><code>a = a * b</code></td>
+                        <td><code>a *= 5;</code> (a = a * 5)</td>
+                    </tr>
+                    <tr>
+                        <td><code>/=</code></td>
+                        <td><code>a = a / b</code></td>
+                        <td><code>a /= 5;</code> (a = a / 5)</td>
+                    </tr>
+                </table>
+
+                <h3>🔢 Operadores Relacionais</h3>
+                <p>Usados para comparar valores. Resultam em verdadeiro (1) ou falso (0):</p>
+                <table>
+                    <tr>
+                        <th>Operador</th>
+                        <th>Descrição</th>
+                        <th>Exemplo</th>
+                        <th>Resultado</th>
+                    </tr>
+                    <tr>
+                        <td><code>==</code></td>
+                        <td>Igual</td>
+                        <td><code>5 == 5</code></td>
+                        <td>1 (verdadeiro)</td>
+                    </tr>
+                    <tr>
+                        <td><code>!=</code></td>
+                        <td>Diferente</td>
+                        <td><code>5 != 3</code></td>
+                        <td>1 (verdadeiro)</td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;</code></td>
+                        <td>Menor que</td>
+                        <td><code>3 &lt; 5</code></td>
+                        <td>1 (verdadeiro)</td>
+                    </tr>
+                    <tr>
+                        <td><code>&gt;</code></td>
+                        <td>Maior que</td>
+                        <td><code>5 &gt; 3</code></td>
+                        <td>1 (verdadeiro)</td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;=</code></td>
+                        <td>Menor ou igual</td>
+                        <td><code>5 &lt;= 5</code></td>
+                        <td>1 (verdadeiro)</td>
+                    </tr>
+                    <tr>
+                        <td><code>&gt;=</code></td>
+                        <td>Maior ou igual</td>
+                        <td><code>5 &gt;= 3</code></td>
+                        <td>1 (verdadeiro)</td>
+                    </tr>
+                </table>
+
+                <h3>⚡ Operadores Lógicos</h3>
+                <table>
+                    <tr>
+                        <th>Operador</th>
+                        <th>Descrição</th>
+                        <th>Exemplo</th>
+                        <th>Resultado</th>
+                    </tr>
+                    <tr>
+                        <td><code>&&</code></td>
+                        <td>E (AND)</td>
+                        <td><code>5 > 3 && 2 < 4</code></td>
+                        <td>1 (verdadeiro)</td>
+                    </tr>
+                    <tr>
+                        <td><code>||</code></td>
+                        <td>OU (OR)</td>
+                        <td><code>5 > 10 || 2 < 4</code></td>
+                        <td>1 (verdadeiro)</td>
+                    </tr>
+                    <tr>
+                        <td><code>!</code></td>
+                        <td>NÃO (NOT)</td>
+                        <td><code>!(5 > 10)</code></td>
+                        <td>1 (verdadeiro)</td>
+                    </tr>
+                </table>
+
+                <p><strong>Exemplos:</strong></p>
+                <pre><code>int a = 10, b = 5, c = 3;
+
+// AND - precisa que AMBAS sejam verdadeiras
+if (a > b && b > c) {  // 10 > 5 E 5 > 3 = verdadeiro
+    printf("Ambas são verdadeiras\n");
+}
+
+// OR - precisa que UMA seja verdadeira
+if (a < b || b > c) {  // 10 < 5 OU 5 > 3 = verdadeiro
+    printf("Pelo menos uma é verdadeira\n");
+}
+
+// NOT - inverte o resultado
+if (!(a < b)) {        // NÃO (10 < 5) = verdadeiro
+    printf("a NÃO é menor que b\n");
+}</code></pre>
+            </div>
+
+            <!-- Seção 2.4: Entrada e Saída -->
+            <div id="entrada-saida" class="section">
+                <h2>2.4 Entrada e Saída de Dados</h2>
+
+                <h3>📤 Função printf() - Exibir na Tela</h3>
+                <p>Já conhecemos printf(), vamos ver com mais detalhes:</p>
+                <pre><code>printf("texto com %tipo", variavel);</code></pre>
+
+                <h3>📋 Especificadores de Formato</h3>
+                <table>
+                    <tr>
+                        <th>Especificador</th>
+                        <th>Tipo</th>
+                        <th>Exemplo</th>
+                    </tr>
+                    <tr>
+                        <td><code>%d</code> ou <code>%i</code></td>
+                        <td>int</td>
+                        <td><code>printf("%d\n", 42);</code> → <code>42</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>%f</code></td>
+                        <td>float ou double</td>
+                        <td><code>printf("%f\n", 3.14);</code> → <code>3.140000</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>%.2f</code></td>
+                        <td>float (2 casas decimais)</td>
+                        <td><code>printf("%.2f\n", 3.14159);</code> → <code>3.14</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>%c</code></td>
+                        <td>char</td>
+                        <td><code>printf("%c\n", 'A');</code> → <code>A</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>%s</code></td>
+                        <td>string</td>
+                        <td><code>printf("%s\n", "Olá");</code> → <code>Olá</code></td>
+                    </tr>
+                </table>
+
+                <p><strong>Exemplos:</strong></p>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int idade = 25;
+    float altura = 1.75;
+    char inicial = 'J';
+    
+    printf("Idade: %d\n", idade);
+    printf("Altura: %.2f\n", altura);
+    printf("Inicial: %c\n", inicial);
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Saída:</strong></p>
+                <pre><code>Idade: 25
+Altura: 1.75
+Inicial: J</code></pre>
+
+                <h3>📥 Função scanf() - Ler do Teclado</h3>
+                <p>scanf() lê dados que o usuário digita:</p>
+                <pre><code>scanf("%tipo", &variavel);</code></pre>
+
+                <div class="type-box">
+                    <strong>⚠️ Importante:</strong> Note o símbolo <code>&</code> (endereço). Ele é necessário!
+                </div>
+
+                <p><strong>Exemplo completo:</strong></p>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int numero;
+    float valor;
+    
+    printf("Digite um número inteiro: ");
+    scanf("%d", &numero);
+    
+    printf("Digite um valor decimal: ");
+    scanf("%f", &valor);
+    
+    printf("Você digitou %d e %.2f\n", numero, valor);
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Exemplo de execução:</strong></p>
+                <pre><code>Digite um número inteiro: 42
+Digite um valor decimal: 3.14
+Você digitou 42 e 3.14</code></pre>
+
+                <h3>📝 Programa Completo - Calculadora Simples</h3>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int a, b, soma, diferenca, produto;
+    
+    printf("=== CALCULADORA SIMPLES ===\n");
+    printf("Digite o primeiro número: ");
+    scanf("%d", &a);
+    
+    printf("Digite o segundo número: ");
+    scanf("%d", &b);
+    
+    soma = a + b;
+    diferenca = a - b;
+    produto = a * b;
+    
+    printf("\n=== RESULTADOS ===\n");
+    printf("%d + %d = %d\n", a, b, soma);
+    printf("%d - %d = %d\n", a, b, diferenca);
+    printf("%d * %d = %d\n", a, b, produto);
+    
+    return 0;
+}</code></pre>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Sempre exiba uma mensagem antes de usar scanf() para instruir o usuário 
+                    sobre o que digitar!
+                </div>
+            </div>
+
+            <!-- Seção Exercícios -->
+            <div id="exercicios" class="section">
+                <h2>📝 Exercícios Práticos</h2>
+
+                <div class="exercise">
+                    <h4>Exercício 2.1: Idade em Dias</h4>
+                    <p>Crie um programa que:</p>
+                    <ul>
+                        <li>Peça a idade do usuário em anos</li>
+                        <li>Converta para dias (aproximadamente 365 dias por ano)</li>
+                        <li>Exiba o resultado</li>
+                    </ul>
+                    <p><strong>Entrada:</strong> 25</p>
+                    <p><strong>Saída esperada:</strong> Sua idade em dias é aproximadamente 9125 dias</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercício 2.2: Área de um Retângulo</h4>
+                    <p>Faça um programa que:</p>
+                    <ul>
+                        <li>Leia a largura e altura de um retângulo</li>
+                        <li>Calcule a área (largura × altura)</li>
+                        <li>Exiba a área com 2 casas decimais</li>
+                    </ul>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercício 2.3: Média de Notas</h4>
+                    <p>Crie um programa que:</p>
+                    <ul>
+                        <li>Leia 3 notas de um aluno</li>
+                        <li>Calcule a média</li>
+                        <li>Exiba a média com 1 casa decimal</li>
+                    </ul>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercício 2.4: Conversão de Temperatura</h4>
+                    <p>Faça um programa que:</p>
+                    <ul>
+                        <li>Leia uma temperatura em Celsius</li>
+                        <li>Converta para Fahrenheit usando: F = (C × 9/5) + 32</li>
+                        <li>Exiba o resultado com 1 casa decimal</li>
+                    </ul>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercício 2.5: Troco</h4>
+                    <p>Crie um programa que:</p>
+                    <ul>
+                        <li>Leia o preço de um produto</li>
+                        <li>Leia o valor pago pelo cliente</li>
+                        <li>Calcule e exiba o troco</li>
+                    </ul>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Teste seus programas com diferentes valores de entrada!
+                </div>
+            </div>
+
+            <!-- Seção Resumo -->
+            <div id="resumo" class="section">
+                <h2>✅ Resumo do Módulo</h2>
+
+                <div class="summary">
+                    <h3>O que aprendemos:</h3>
+                    <ul>
+                        <li>✅ Como declarar e usar variáveis</li>
+                        <li>✅ Os tipos de dados primitivos (int, float, double, char)</li>
+                        <li>✅ Operadores aritméticos, relacionais e lógicos</li>
+                        <li>✅ Como ler dados com scanf() e exibir com printf()</li>
+                        <li>✅ Regras para nomear variáveis</li>
+                    </ul>
+                </div>
+
+                <div class="summary" style="background: #f0f7ff; border-left-color: #667eea; margin-top: 20px;">
+                    <h3>📚 Principais Pontos:</h3>
+                    <ul>
+                        <li><strong>int:</strong> Números inteiros (4 bytes)</li>
+                        <li><strong>float:</strong> Decimais simples (4 bytes)</li>
+                        <li><strong>double:</strong> Decimais precisos (8 bytes)</li>
+                        <li><strong>char:</strong> Um caractere (1 byte)</li>
+                        <li><strong>printf():</strong> Exibir dados</li>
+                        <li><strong>scanf():</strong> Ler dados (use & com a variável!)</li>
+                        <li><strong>Operadores:</strong> +, -, *, /, %</li>
+                        <li><strong>Lógica:</strong> &&, ||, !</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 30px;">🚀 Próximos Passos</h3>
+                <p>
+                    Agora que você entende variáveis e operadores, vamos para o <strong>Módulo 3</strong> onde aprenderemos:
+                </p>
+                <ul>
+                    <li>Estruturas de controle (if, else)</li>
+                    <li>Estrutura switch-case</li>
+                    <li>Como tomar decisões no código</li>
+                </ul>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="voltarModulo()">← Módulo 1</button>
+                    <button class="btn btn-primary" onclick="completarModulo()">✅ Marcar como Concluído</button>
+                    <button class="btn btn-secondary" onclick="irProximoModulo()">Próximo Módulo →</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Curso Básico de Linguagem C</strong> | Módulo 2: Conceitos Fundamentais</p>
+            <p style="color: #999; margin-top: 10px; font-size: 0.9em;">Continue estudando! 🚀</p>
+        </footer>
+    </div>
+
+    <script>
+        // Controlar navegação entre seções
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('.section');
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const sectionId = button.getAttribute('data-section');
+
+                // Remover classe active de todos os botões e seções
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                sections.forEach(section => section.classList.remove('active'));
+
+                // Adicionar classe active ao botão e seção clicados
+                button.classList.add('active');
+                document.getElementById(sectionId).classList.add('active');
+
+                // Atualizar progress bar
+                updateProgress();
+
+                // Scroll suave para o topo
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Função para atualizar a barra de progresso
+        function updateProgress() {
+            const activeSectionIndex = Array.from(sections).findIndex(s => s.classList.contains('active'));
+            const progress = ((activeSectionIndex + 1) / sections.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        // Função para completar o módulo
+        function completarModulo() {
+            alert('✅ Parabéns! Você completou o Módulo 2!\n\nAgora você está pronto para o Módulo 3: Estruturas de Controle');
+            localStorage.setItem('modulo2-concluido', 'true');
+        }
+
+        // Função para ir para o próximo módulo
+        function irProximoModulo() {
+            alert('🚀 Redirecionando para o Módulo 3...\n(Em breve disponível)');
+        }
+
+        // Função para voltar ao módulo anterior
+        function voltarModulo() {
+            alert('⬅️ Redirecionando para o Módulo 1...\n(Em breve disponível)');
+        }
+
+        // Inicializar progress bar
+        updateProgress();
+
+        // Teclado: Setas para navegação
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                const activeButton = document.querySelector('.nav-btn.active');
+                const nextButton = activeButton.parentElement.nextElementSibling?.querySelector('.nav-btn');
+                if (nextButton) nextButton.click();
+            } else if (e.key === 'ArrowLeft') {
+                const activeButton = document.querySelector('.nav-btn.active');
+                const prevButton = activeButton.parentElement.previousElementSibling?.querySelector('.nav-btn');
+                if (prevButton) prevButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
