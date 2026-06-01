@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 5: Funções</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        nav {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        nav button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        nav button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        nav button.active {
+            background: #764ba2;
+            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+        }
+
+        .content {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            line-height: 1.5;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        pre code {
+            color: inherit;
+            background: none;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+
+        .exercise {
+            background: #f0f7ff;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .exercise h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .tip {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .tip strong {
+            color: #ff9800;
+        }
+
+        .success {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .summary {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .summary ul {
+            margin-left: 20px;
+        }
+
+        .summary li {
+            margin-bottom: 8px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        footer {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 5px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .diagram {
+            background: #f9f9f9;
+            border: 2px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-family: monospace;
+            text-align: center;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        .warning {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .warning strong {
+            color: #c62828;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav button {
+                width: 100%;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            pre {
+                font-size: 0.9em;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Módulo 5: Funções</h1>
+            <p>Aprenda a criar e usar funções para organizar melhor seu código</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+        </header>
+
+        <nav>
+            <ul>
+                <li><button class="nav-btn active" data-section="basico">5.1 Básico</button></li>
+                <li><button class="nav-btn" data-section="parametros">5.2 Parâmetros</button></li>
+                <li><button class="nav-btn" data-section="retorno">5.3 Retorno</button></li>
+                <li><button class="nav-btn" data-section="escopo">5.4 Escopo</button></li>
+                <li><button class="nav-btn" data-section="recursao">5.5 Recursão</button></li>
+                <li><button class="nav-btn" data-section="exercicios">📝 Exercícios</button></li>
+                <li><button class="nav-btn" data-section="resumo">✅ Resumo</button></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <!-- Seção 5.1: Básico -->
+            <div id="basico" class="section active">
+                <h2>5.1 Conceitos Básicos de Funções</h2>
+
+                <h3>🎯 O que é uma Função?</h3>
+                <p>
+                    Uma função é um bloco de código reutilizável que realiza uma tarefa específica. 
+                    Funções ajudam a organizar o código, evitam repetição e facilitam a manutenção.
+                </p>
+
+                <h3>📋 Sintaxe Básica</h3>
+                <pre><code>tipo_retorno nome_funcao(parâmetros) {
+    // Corpo da função
+    // Código executado quando a função é chamada
+}
+
+// Chamando a função
+nome_funcao(argumentos);</code></pre>
+
+                <h3>📊 Partes de uma Função</h3>
+                <table>
+                    <tr>
+                        <th>Parte</th>
+                        <th>Descrição</th>
+                        <th>Exemplo</th>
+                    </tr>
+                    <tr>
+                        <td><strong>tipo_retorno</strong></td>
+                        <td>Tipo de dado que a função retorna</td>
+                        <td><code>int</code>, <code>void</code>, <code>float</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>nome_funcao</strong></td>
+                        <td>Nome descritivo da função</td>
+                        <td><code>somar</code>, <code>calcular</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>parâmetros</strong></td>
+                        <td>Dados que a função recebe</td>
+                        <td><code>(int a, int b)</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>corpo</strong></td>
+                        <td>Instruções da função</td>
+                        <td>Bloco entre chaves</td>
+                    </tr>
+                </table>
+
+                <h3>📚 Exemplo 1: Função Simples sem Retorno</h3>
+                <pre><code>#include &lt;stdio.h&gt;
+
+// Declaração (protótipo)
+void saudacao();
+
+int main() {
+    printf("Iniciando programa\n");
+    
+    // Chamando a função
+    saudacao();
+    saudacao();
+    
+    printf("Terminando programa\n");
+    
+    return 0;
+}
+
+// Definição (implementação)
+void saudacao() {
+    printf("Olá, bem-vindo!\n");
+}</code></pre>
+
+                <p><strong>Saída:</strong></p>
+                <pre><code>Iniciando programa
+Olá, bem-vindo!
+Olá, bem-vindo!
+Terminando programa</code></pre>
+
+                <h3>📚 Exemplo 2: Função com Retorno</h3>
+                <pre><code>#include &lt;stdio.h&gt;
+
+// Protótipo
+int dobrar(int numero);
+
+int main() {
+    int resultado = dobrar(5);
+    printf("5 dobrado é %d\n", resultado);
+    
+    return 0;
+}
+
+// Implementação
+int dobrar(int numero) {
+    return numero * 2;
+}</code></pre>
+
+                <p><strong>Saída:</strong> <code>5 dobrado é 10</code></p>
+
+                <h3>📋 Protótipo de Função</h3>
+                <p>
+                    Um protótipo declara a função ANTES de usá-la. Isso permite que <code>main()</code> chame a função 
+                    sem conhecer sua implementação completa.
+                </p>
+
+                <pre><code>// Protótipo (declaração)
+int somar(int a, int b);
+
+int main() {
+    int resultado = somar(3, 5);
+    printf("Resultado: %d\n", resultado);
+    return 0;
+}
+
+// Implementação (definição)
+int somar(int a, int b) {
+    return a + b;
+}</code></pre>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Sempre escreva o protótipo da função ANTES de <code>main()</code> 
+                    e a implementação DEPOIS de <code>main()</code>.
+                </div>
+
+                <h3>⚠️ void - Função sem Retorno</h3>
+                <p>
+                    Use <code>void</code> quando a função não retorna nada, apenas executa ações.
+                </p>
+
+                <pre><code>void imprimir_linha() {
+    printf("===================\n");
+}
+
+int main() {
+    imprimir_linha();
+    printf("Conteúdo\n");
+    imprimir_linha();
+    
+    return 0;
+}</code></pre>
+            </div>
+
+            <!-- Seção 5.2: Parâmetros -->
+            <div id="parametros" class="section">
+                <h2>5.2 Parâmetros e Argumentos</h2>
+
+                <h3>📝 Diferença Entre Parâmetro e Argumento</h3>
+                <table>
+                    <tr>
+                        <th>Termo</th>
+                        <th>Descrição</th>
+                        <th>Exemplo</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Parâmetro</strong></td>
+                        <td>Variável na DEFINIÇÃO da função</td>
+                        <td><code>int somar(int a, int b)</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Argumento</strong></td>
+                        <td>Valor passado na CHAMADA da função</td>
+                        <td><code>somar(3, 5)</code></td>
+                    </tr>
+                </table>
+
+                <h3>📚 Exemplo 1: Função com Múltiplos Parâmetros</h3>
+                <pre><code>#include &lt;stdio.h&gt;
+
+void exibir_pessoa(char *nome, int idade, float altura);
+
+int main() {
+    exibir_pessoa("João", 25, 1.80);
+    exibir_pessoa("Maria", 30, 1.65);
+    
+    return 0;
+}
+
+void exibir_pessoa(char *nome, int idade, float altura) {
+    printf("Nome: %s\n", nome);
+    printf("Idade: %d\n", idade);
+    printf("Altura: %.2f\n", altura);
+    printf("---\n");
+}</code></pre>
+
+                <p><strong>Saída:</strong></p>
+                <pre><code>Nome: João
+Idade: 25
+Altura: 1.80
+---
+Nome: Maria
+Idade: 30
+Altura: 1.65
+---</code></pre>
+
+                <h3>📚 Exemplo 2: Operações Matemáticas</h3>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int somar(int a, int b);
+int subtrair(int a, int b);
+int multiplicar(int a, int b);
+
+int main() {
+    int x = 10, y = 3;
+    
+    printf("Soma: %d\n", somar(x, y));
+    printf("Subtração: %d\n", subtrair(x, y));
+    printf("Multiplicação: %d\n", multiplicar(x, y));
+    
+    return 0;
+}
+
+int somar(int a, int b) {
+    return a + b;
+}
+
+int subtrair(int a, int b) {
+    return a - b;
+}
+
+int multiplicar(int a, int b) {
+    return a * b;
+}</code></pre>
+
+                <p><strong>Saída:</strong></p>
+                <pre><code>Soma: 13
+Subtração: 7
+Multiplicação: 30</code></pre>
+
+                <h3>📋 Passagem de Parâmetros</h3>
+                <p>
+                    Em C, parâmetros são passados por VALOR, ou seja, a função recebe uma CÓPIA do valor. 
+                    Mudanças dentro da função não afetam o original.
+                </p>
+
+                <pre><code>#include &lt;stdio.h&gt;
+
+void modificar(int numero) {
+    numero = 100;  // Muda apenas a cópia local
+}
+
+int main() {
+    int valor = 50;
+    
+    printf("Antes: %d\n", valor);  // 50
+    modificar(valor);
+    printf("Depois: %d\n", valor);  // Ainda 50!
+    
+    return 0;
+}</code></pre>
+
+                <div class="diagram">
+PASSAGEM POR VALOR:
+
+main()              modificar(int numero)
+int valor = 50         CÓPIA: 100
+   |                      |
+   +------ CÓPIA ------→  (modificação local)
+                           |
+                          Fim da função
+                           |
+   Valor original não muda ✓
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Se quiser que a função modifique uma variável do <code>main()</code>, 
+                    você precisa usar PONTEIROS (próximo curso!).
+                </div>
+            </div>
+
+            <!-- Seção 5.3: Retorno -->
+            <div id="retorno" class="section">
+                <h2>5.3 Valores de Retorno</h2>
+
+                <h3>📤 Return - Retornando Valores</h3>
+                <p>
+                    O comando <code>return</code> envia um valor de volta para quem chamou a função e encerra a execução.
+                </p>
+
+                <h3>📚 Exemplo 1: Função Simples com Return</h3>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int quadrado(int numero);
+
+int main() {
+    int resultado = quadrado(5);
+    printf("5 ao quadrado = %d\n", resultado);
+    
+    return 0;
+}
+
+int quadrado(int numero) {
+    int resultado = numero * numero;
+    return resultado;  // Retorna o valor
+}</code></pre>
+
+                <p><strong>Saída:</strong> <code>5 ao quadrado = 25</code></p>
+
+                <h3>📚 Exemplo 2: Múltiplos Retornos (Condicionais)</h3>
+                <pre><code>#include &lt;stdio.h&gt;
+
+char classificacao(int nota);
+
+int main() {
+    printf("Nota 95: %c\n", classificacao(95));
+    printf("Nota 75: %c\n", classificacao(75));
+    printf("Nota 50: %c\n", classificacao(50));
+    
+    return 0;
+}
+
+char classificacao(int nota) {
+    if (nota >= 90) {
+        return 'A';
+    } else if (nota >= 80) {
+        return 'B';
+    } else if (nota >= 70) {
+        return 'C';
+    } else if (nota >= 60) {
+        return 'D';
+    } else {
+        return 'F';
+    }
+}</code></pre>
+
+                <p><strong>Saída:</strong></p>
+                <pre><code>Nota 95: A
+Nota 75: C
+Nota 50: F</code></pre>
+
+                <h3>📚 Exemplo 3: Validação</h3>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int numero_valido(int numero);
+
+int main() {
+    if (numero_valido(25)) {
+        printf("Número válido!\n");
+    } else {
+        printf("Número inválido!\n");
+    }
+    
+    return 0;
+}
+
+int numero_valido(int numero) {
+    if (numero >= 0 && numero <= 100) {
+        return 1;  // Verdadeiro
+    } else {
+        return 0;  // Falso
+    }
+}</code></pre>
+
+                <h3>⚠️ Detalhes Importantes</h3>
+                <ul>
+                    <li>O tipo de retorno deve corresponder ao valor retornado</li>
+                    <li><code>return</code> encerra a função IMEDIATAMENTE</li>
+                    <li>Código após <code>return</code> NÃO é executado</li>
+                    <li>Funções <code>void</code> podem usar <code>return;</code> sem valor</li>
+                </ul>
+
+                <p><strong>Exemplo - return sem valor em void:</strong></p>
+                <pre><code>void processar(int valor) {
+    if (valor < 0) {
+        printf("Valor negativo!\n");
+        return;  // Sai da função
+    }
+    
+    printf("Processando %d\n", valor);
+}</code></pre>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Use return para sair antecipadamente de uma função se uma condição não for atendida!
+                </div>
+            </div>
+
+            <!-- Seção 5.4: Escopo -->
+            <div id="escopo" class="section">
+                <h2>5.4 Escopo de Variáveis</h2>
+
+                <h3>🔍 O que é Escopo?</h3>
+                <p>
+                    Escopo é a região do código onde uma variável pode ser acessada. Variáveis declaradas 
+                    dentro de uma função são locais àquela função.
+                </p>
+
+                <h3>📚 Exemplo 1: Escopo Local</h3>
+                <pre><code>#include &lt;stdio.h&gt;
+
+void funcao1() {
+    int x = 10;  // Local a funcao1
+    printf("funcao1: x = %d\n", x);
+}
+
+void funcao2() {
+    int x = 20;  // Local a funcao2
+    printf("funcao2: x = %d\n", x);
+}
+
+int main() {
+    funcao1();  // Saída: funcao1: x = 10
+    funcao2();  // Saída: funcao2: x = 20
+    
+    // printf("%d", x);  // ERRO! x não existe aqui
+    
+    return 0;
+}</code></pre>
+
+                <h3>📚 Exemplo 2: Variáveis Globais</h3>
+                <p>
+                    Variáveis GLOBAIS são acessíveis em todo o programa.
+                </p>
+
+                <pre><code>#include &lt;stdio.h&gt;
+
+int contador = 0;  // GLOBAL
+
+void incrementar() {
+    contador++;  // Acessa a variável global
+}
+
+int main() {
+    printf("Inicial: %d\n", contador);  // 0
+    
+    incrementar();
+    printf("Após incrementar: %d\n", contador);  // 1
+    
+    incrementar();
+    printf("Após incrementar: %d\n", contador);  // 2
+    
+    return 0;
+}</code></pre>
+
+                <h3>📊 Comparação: Local vs Global</h3>
+                <table>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Localização</th>
+                        <th>Acessibilidade</th>
+                        <th>Recomendação</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Local</strong></td>
+                        <td>Dentro de função</td>
+                        <td>Apenas naquela função</td>
+                        <td>Prefira! Mais seguro</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Global</strong></td>
+                        <td>Fora de funções</td>
+                        <td>Todo o programa</td>
+                        <td>Use com cuidado</td>
+                    </tr>
+                </table>
+
+                <h3>📋 Variáveis Estáticas (static)</h3>
+                <p>
+                    Variáveis <code>static</code> locais mantêm seu valor entre chamadas.
+                </p>
+
+                <pre><code>#include &lt;stdio.h&gt;
+
+void contar() {
+    static int numero = 0;  // Inicializa UMA VEZ
+    numero++;
+    printf("Chamada %d\n", numero);
+}
+
+int main() {
+    contar();  // Saída: Chamada 1
+    contar();  // Saída: Chamada 2
+    contar();  // Saída: Chamada 3
+    
+    return 0;
+}</code></pre>
+
+                <div class="warning">
+                    <strong>⚠️ Cuidado com Globais:</strong> Podem causar confusão sobre 
+                    onde uma variável é modificada. Use-as com moderação!
+                </div>
+            </div>
+
+            <!-- Seção 5.5: Recursão -->
+            <div id="recursao" class="section">
+                <h2>5.5 Recursão</h2>
+
+                <h3>🔄 O que é Recursão?</h3>
+                <p>
+                    Recursão é quando uma função chama a si mesma. É uma forma elegante de resolver 
+                    problemas que têm uma estrutura repetitiva.
+                </p>
+
+                <h3>📋 Partes de uma Função Recursiva</h3>
+                <table>
+                    <tr>
+                        <th>Parte</th>
+                        <th>Descrição</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Caso Base</strong></td>
+                        <td>Condição que para a recursão</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Caso Recursivo</strong></td>
+                        <td>A função chama a si mesma com parâmetro diferente</td>
+                    </tr>
+                </table>
+
+                <h3>📚 Exemplo 1: Contagem Regressiva</h3>
+                <pre><code>#include &lt;stdio.h&gt;
+
+void contar(int n) {
+    // CASO BASE - para a recursão
+    if (n == 0) {
+        printf("BLASTOFF!\n");
+        return;
+    }
+    
+    printf("%d\n", n);
+    
+    // CASO RECURSIVO - chama a si mesma
+    contar(n - 1);
+}
+
+int main() {
+    contar(5);
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Saída:</strong></p>
+                <pre><code>5
+4
+3
+2
+1
+BLASTOFF!</code></pre>
+
+                <h3>📚 Exemplo 2: Fatorial</h3>
+                <p>
+                    Fatorial de n é: n! = n × (n-1) × (n-2) × ... × 1
+                    Exemplo: 5! = 5 × 4 × 3 × 2 × 1 = 120
+                </p>
+
+                <pre><code>#include &lt;stdio.h&gt;
+
+int fatorial(int n) {
+    // CASO BASE
+    if (n == 0 || n == 1) {
+        return 1;
+    }
+    
+    // CASO RECURSIVO
+    return n * fatorial(n - 1);
+}
+
+int main() {
+    printf("5! = %d\n", fatorial(5));  // 120
+    printf("3! = %d\n", fatorial(3));  // 6
+    
+    return 0;
+}</code></pre>
+
+                <div class="diagram">
+fatorial(5):
+5 * fatorial(4)
+5 * (4 * fatorial(3))
+5 * (4 * (3 * fatorial(2)))
+5 * (4 * (3 * (2 * fatorial(1))))
+5 * (4 * (3 * (2 * 1)))
+5 * (4 * (3 * 2))
+5 * (4 * 6)
+5 * 24
+120
+                </div>
+
+                <h3>📚 Exemplo 3: Fibonacci</h3>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int fibonacci(int n) {
+    // CASO BASE
+    if (n <= 1) {
+        return n;
+    }
+    
+    // CASO RECURSIVO
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+int main() {
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", fibonacci(i));
+    }
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Saída:</strong> <code>0 1 1 2 3 5 8 13 21 34</code></p>
+
+                <div class="warning">
+                    <strong>⚠️ Cuidado!</strong> Recursão pode ser lenta se não for otimizada. 
+                    Sempre tenha um CASO BASE para evitar loops infinitos!
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Use recursão para problemas matemáticos e estruturas em árvore. 
+                    Para iterações simples, use loops!
+                </div>
+            </div>
+
+            <!-- Seção Exercícios -->
+            <div id="exercicios" class="section">
+                <h2>📝 Exercícios Práticos</h2>
+
+                <div class="exercise">
+                    <h4>Exercício 5.1: Calcular Média</h4>
+                    <p>Crie uma função que:</p>
+                    <ul>
+                        <li>Receba 3 notas como parâmetros</li>
+                        <li>Calcule a média</li>
+                        <li>Retorne a média</li>
+                    </ul>
+                    <p><strong>Função:</strong> <code>float calcular_media(float n1, float n2, float n3)</code></p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercício 5.2: Verificar Paridade</h4>
+                    <p>Faça uma função que:</p>
+                    <ul>
+                        <li>Receba um número</li>
+                        <li>Retorne 1 se é par, 0 se é ímpar</li>
+                    </ul>
+                    <p><strong>Função:</strong> <code>int eh_par(int numero)</code></p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercício 5.3: Valor Absoluto</h4>
+                    <p>Crie uma função que:</p>
+                    <ul>
+                        <li>Receba um número inteiro</li>
+                        <li>Retorne seu valor absoluto (sem sinal negativo)</li>
+                    </ul>
+                    <p><strong>Função:</strong> <code>int valor_absoluto(int numero)</code></p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercício 5.4: Somatória Recursiva</h4>
+                    <p>Faça uma função recursiva que:</p>
+                    <ul>
+                        <li>Receba um número N</li>
+                        <li>Retorne a soma: 1 + 2 + 3 + ... + N</li>
+                    </ul>
+                    <p><strong>Função:</strong> <code>int somatoria(int n)</code></p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercício 5.5: Programa Completo</h4>
+                    <p>Crie um programa com funções para:</p>
+                    <ul>
+                        <li>Calcular área de retângulo</li>
+                        <li>Calcular área de círculo</li>
+                        <li>Calcular perímetro de quadrado</li>
+                        <li>Menu interativo para escolher qual calcular</li>
+                    </ul>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Teste suas funções com diferentes valores para garantir que funcionam corretamente!
+                </div>
+            </div>
+
+            <!-- Seção Resumo -->
+            <div id="resumo" class="section">
+                <h2>✅ Resumo do Módulo e do Curso!</h2>
+
+                <div class="summary">
+                    <h3>Módulo 5 - O que aprendemos:</h3>
+                    <ul>
+                        <li>✅ Declaração e definição de funções</li>
+                        <li>✅ Protótipos de funções</li>
+                        <li>✅ Parâmetros e argumentos</li>
+                        <li>✅ Valores de retorno</li>
+                        <li>✅ Escopo de variáveis (local e global)</li>
+                        <li>✅ Recursão</li>
+                    </ul>
+                </div>
+
+                <div class="summary" style="background: #f0f7ff; border-left-color: #667eea; margin-top: 20px;">
+                    <h3>📚 Principais Pontos:</h3>
+                    <ul>
+                        <li>Funções organizam e reutilizam código</li>
+                        <li>Protótipo deve estar antes de <code>main()</code></li>
+                        <li>Parâmetros são passados por VALOR em C</li>
+                        <li><code>return</code> envia um valor e encerra a função</li>
+                        <li><code>void</code> = função sem retorno</li>
+                        <li>Escopo local é preferível a global</li>
+                        <li>Recursão é elegante mas cuidado com performance</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 30px; color: #4caf50;">🎓 PARABÉNS! VOCÊ COMPLETOU O CURSO!</h3>
+
+                <div class="success" style="background: #c8e6c9; border-left-color: #2e7d32;">
+                    <h3>🏆 Você aprendeu:</h3>
+                    <ul>
+                        <li>✅ <strong>Módulo 1:</strong> Introdução e estrutura básica</li>
+                        <li>✅ <strong>Módulo 2:</strong> Variáveis, tipos de dados e operadores</li>
+                        <li>✅ <strong>Módulo 3:</strong> Estruturas de controle (if-else, switch)</li>
+                        <li>✅ <strong>Módulo 4:</strong> Laços de repetição (for, while, do-while)</li>
+                        <li>✅ <strong>Módulo 5:</strong> Funções e recursão</li>
+                    </ul>
+
+                    <h3 style="margin-top: 20px;">📖 Próximas Etapas Recomendadas:</h3>
+                    <ul>
+                        <li>🔹 <strong>Matrizes e Strings</strong> - Trabalhar com coleções de dados</li>
+                        <li>🔹 <strong>Ponteiros</strong> - Acesso direto à memória</li>
+                        <li>🔹 <strong>Estruturas (structs)</strong> - Tipos de dados customizados</li>
+                        <li>🔹 <strong>Arquivos</strong> - Persistência de dados</li>
+                        <li>🔹 <strong>Alocação Dinâmica</strong> - Gerenciar memória em tempo de execução</li>
+                    </ul>
+
+                    <h3 style="margin-top: 20px;">💡 Dicas para Continuar:</h3>
+                    <ul>
+                        <li>🔸 Pratique constantemente escrevendo código</li>
+                        <li>🔸 Resolva problemas de diferentes níveis</li>
+                        <li>🔸 Leia e entenda código de outros</li>
+                        <li>🔸 Debugue seu código com ferramentas como gdb</li>
+                        <li>🔸 Participe de comunidades de programação</li>
+                    </ul>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="voltarModulo()">← Módulo 4</button>
+                    <button class="btn btn-primary" onclick="completarCurso()">🎉 Marcar Curso como Concluído</button>
+                </div>
+
+                <h3 style="margin-top: 30px; text-align: center; color: #667eea;">
+                    Obrigado por completar o Curso Básico de Linguagem C! 🚀
+                </h3>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Curso Básico de Linguagem C</strong> | Módulo 5: Funções - MÓDULO FINAL</p>
+            <p style="color: #999; margin-top: 10px; font-size: 0.9em;">Parabéns por chegar até aqui! Continue estudando! 🚀</p>
+        </footer>
+    </div>
+
+    <script>
+        // Controlar navegação entre seções
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('.section');
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const sectionId = button.getAttribute('data-section');
+
+                // Remover classe active de todos os botões e seções
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                sections.forEach(section => section.classList.remove('active'));
+
+                // Adicionar classe active ao botão e seção clicados
+                button.classList.add('active');
+                document.getElementById(sectionId).classList.add('active');
+
+                // Atualizar progress bar
+                updateProgress();
+
+                // Scroll suave para o topo
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Função para atualizar a barra de progresso
+        function updateProgress() {
+            const activeSectionIndex = Array.from(sections).findIndex(s => s.classList.contains('active'));
+            const progress = ((activeSectionIndex + 1) / sections.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        // Função para completar o curso
+        function completarCurso() {
+            alert('🎉 PARABÉNS! VOCÊ COMPLETOU O CURSO BÁSICO DE LINGUAGEM C!\n\nVocê agora domina:\n✓ Estrutura de programas\n✓ Variáveis e tipos\n✓ Estruturas de controle\n✓ Laços de repetição\n✓ Funções e recursão\n\nContinue praticando e explore os próximos tópicos!\n\nBoa sorte na sua jornada com C! 🚀');
+            localStorage.setItem('curso-completo', 'true');
+        }
+
+        // Função para voltar ao módulo anterior
+        function voltarModulo() {
+            alert('⬅️ Redirecionando para o Módulo 4...\n(Em breve disponível)');
+        }
+
+        // Inicializar progress bar
+        updateProgress();
+
+        // Teclado: Setas para navegação
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                const activeButton = document.querySelector('.nav-btn.active');
+                const nextButton = activeButton.parentElement.nextElementSibling?.querySelector('.nav-btn');
+                if (nextButton) nextButton.click();
+            } else if (e.key === 'ArrowLeft') {
+                const activeButton = document.querySelector('.nav-btn.active');
+                const prevButton = activeButton.parentElement.previousElementSibling?.querySelector('.nav-btn');
+                if (prevButton) prevButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
