@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 4: Laços de Repetição</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        nav {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        nav button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        nav button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        nav button.active {
+            background: #764ba2;
+            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+        }
+
+        .content {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            line-height: 1.5;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        pre code {
+            color: inherit;
+            background: none;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+
+        .exercise {
+            background: #f0f7ff;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .exercise h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .tip {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .tip strong {
+            color: #ff9800;
+        }
+
+        .summary {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .summary ul {
+            margin-left: 20px;
+        }
+
+        .summary li {
+            margin-bottom: 8px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        footer {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 5px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .diagram {
+            background: #f9f9f9;
+            border: 2px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-family: monospace;
+            text-align: center;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        .warning {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .warning strong {
+            color: #c62828;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison-box {
+            background: #f9f9f9;
+            border: 2px solid #667eea;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .comparison-box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav button {
+                width: 100%;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            pre {
+                font-size: 0.9em;
+                padding: 15px;
+            }
+
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Módulo 4: Laços de Repetição</h1>
+            <p>Aprenda a repetir blocos de código com for, while e do-while</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+        </header>
+
+        <nav>
+            <ul>
+                <li><button class="nav-btn active" data-section="for">4.1 Laço for</button></li>
+                <li><button class="nav-btn" data-section="while">4.2 Laço while</button></li>
+                <li><button class="nav-btn" data-section="do-while">4.3 Laço do-while</button></li>
+                <li><button class="nav-btn" data-section="controle">4.4 Controle (break/continue)</button></li>
+                <li><button class="nav-btn" data-section="exercicios">📝 Exercícios</button></li>
+                <li><button class="nav-btn" data-section="resumo">✅ Resumo</button></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <!-- Seção 4.1: for -->
+            <div id="for" class="section active">
+                <h2>4.1 Laço for</h2>
+
+                <h3>🔁 O que é um Laço (Loop)?</h3>
+                <p>
+                    Um laço é uma estrutura que permite repetir um bloco de código múltiplas vezes. 
+                    É fundamental em programação para evitar repetição de código.
+                </p>
+
+                <h3>📋 Sintaxe do for</h3>
+                <pre><code>for (inicialização; condição; incremento) {
+    // Código que se repete
+}</code></pre>
+
+                <h3>📊 Como Funciona o for</h3>
+                <div class="diagram">
+1. INICIALIZAÇÃO: i = 0
+   ↓
+2. CONDIÇÃO: i < 5 ?
+   ├─ SIM → Executa bloco e vai para 3
+   └─ NÃO → Sai do laço
+   ↓
+3. INCREMENTO: i++
+   ↑
+   └─ Volta para passo 2
+                </div>
+
+                <p><strong>Exemplo Simples:</strong></p>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    for (int i = 0; i < 5; i++) {
+        printf("Número: %d\n", i);
+    }
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Saída:</strong></p>
+                <pre><code>Número: 0
+Número: 1
+Número: 2
+Número: 3
+Número: 4</code></pre>
+
+                <h3>🔍 Entendendo Cada Parte</h3>
+                <table>
+                    <tr>
+                        <th>Parte</th>
+                        <th>Descrição</th>
+                        <th>Exemplo</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Inicialização</strong></td>
+                        <td>Executa UMA VEZ no início</td>
+                        <td><code>int i = 0</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Condição</strong></td>
+                        <td>Verificada A CADA iteração</td>
+                        <td><code>i < 5</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Incremento</strong></td>
+                        <td>Executado A CADA iteração</td>
+                        <td><code>i++</code></td>
+                    </tr>
+                </table>
+
+                <h3>📚 Exemplos Práticos</h3>
+
+                <p><strong>Exemplo 1: Imprimir de 1 a 10</strong></p>
+                <pre><code>for (int i = 1; i <= 10; i++) {
+    printf("%d ", i);
+}</code></pre>
+
+                <p><strong>Saída:</strong> <code>1 2 3 4 5 6 7 8 9 10</code></p>
+
+                <p><strong>Exemplo 2: Contar de trás para frente</strong></p>
+                <pre><code>for (int i = 10; i > 0; i--) {
+    printf("%d ", i);
+}</code></pre>
+
+                <p><strong>Saída:</strong> <code>10 9 8 7 6 5 4 3 2 1</code></p>
+
+                <p><strong>Exemplo 3: Tabuada do 5</strong></p>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    printf("Tabuada do 5:\n");
+    for (int i = 1; i <= 10; i++) {
+        printf("5 x %d = %d\n", i, 5 * i);
+    }
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Saída:</strong></p>
+                <pre><code>Tabuada do 5:
+5 x 1 = 5
+5 x 2 = 10
+...
+5 x 10 = 50</code></pre>
+
+                <h3>⚠️ Variações do for</h3>
+
+                <p><strong>for com múltiplos incrementos:</strong></p>
+                <pre><code>for (int i = 0; i < 10; i += 2) {
+    printf("%d ", i);  // 0 2 4 6 8
+}</code></pre>
+
+                <p><strong>for sem inicialização:</strong></p>
+                <pre><code>int i = 0;
+for (; i < 5; i++) {
+    printf("%d ", i);
+}</code></pre>
+
+                <p><strong>for aninhado (tabuada completa):</strong></p>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    for (int i = 1; i <= 10; i++) {
+        for (int j = 1; j <= 10; j++) {
+            printf("%2d ", i * j);
+        }
+        printf("\n");
+    }
+    
+    return 0;
+}</code></pre>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Use `for` quando sabe exatamente quantas vezes quer repetir algo!
+                </div>
+            </div>
+
+            <!-- Seção 4.2: while -->
+            <div id="while" class="section">
+                <h2>4.2 Laço while</h2>
+
+                <h3>🔄 Quando Usar while?</h3>
+                <p>
+                    Use `while` quando não sabe exatamente quantas vezes vai repetir. O laço continua enquanto 
+                    a condição for verdadeira.
+                </p>
+
+                <h3>📋 Sintaxe do while</h3>
+                <pre><code>while (condição) {
+    // Código que se repete
+    // VOCÊ é responsável por mudar a condição!
+}</code></pre>
+
+                <h3>📊 Comparação: for vs while</h3>
+                <div class="comparison">
+                    <div class="comparison-box">
+                        <h4>for (sabe a quantidade)</h4>
+                        <pre><code>for (int i = 0; i < 5; i++) {
+    printf("%d\n", i);
+}</code></pre>
+                    </div>
+                    <div class="comparison-box">
+                        <h4>while (não sabe a quantidade)</h4>
+                        <pre><code>int i = 0;
+while (i < 5) {
+    printf("%d\n", i);
+    i++;
+}</code></pre>
+                    </div>
+                </div>
+
+                <h3>📚 Exemplos Práticos</h3>
+
+                <p><strong>Exemplo 1: Contar até 5</strong></p>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int i = 1;
+    
+    while (i <= 5) {
+        printf("%d\n", i);
+        i++;
+    }
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Saída:</strong></p>
+                <pre><code>1
+2
+3
+4
+5</code></pre>
+
+                <p><strong>Exemplo 2: Ler números até 0</strong></p>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int numero;
+    int soma = 0;
+    
+    printf("Digite números (0 para sair):\n");
+    
+    while (numero != 0) {
+        scanf("%d", &numero);
+        soma += numero;
+    }
+    
+    printf("Soma total: %d\n", soma);
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Interação:</strong></p>
+                <pre><code>Digite números (0 para sair):
+5
+10
+15
+0
+Soma total: 30</code></pre>
+
+                <p><strong>Exemplo 3: Validação de Entrada</strong></p>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int idade;
+    
+    printf("Digite sua idade (0-150): ");
+    scanf("%d", &idade);
+    
+    while (idade < 0 || idade > 150) {
+        printf("Idade inválida! Digite novamente: ");
+        scanf("%d", &idade);
+    }
+    
+    printf("Sua idade é %d\n", idade);
+    
+    return 0;
+}</code></pre>
+
+                <div class="warning">
+                    <strong>⚠️ Cuidado com Loops Infinitos:</strong> Se a condição nunca ficar falsa, o programa ficará preso!
+                    <pre><code>while (1) {
+    printf("Isso vai repetir para sempre!\n");
+}</code></pre>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Sempre tenha certeza de que a condição vai ficar falsa em algum momento!
+                </div>
+            </div>
+
+            <!-- Seção 4.3: do-while -->
+            <div id="do-while" class="section">
+                <h2>4.3 Laço do-while</h2>
+
+                <h3>🔁 Diferença do do-while</h3>
+                <p>
+                    `do-while` é como `while`, mas garante que o bloco execute PELO MENOS UMA VEZ, 
+                    pois verifica a condição no final.
+                </p>
+
+                <h3>📋 Sintaxe do do-while</h3>
+                <pre><code>do {
+    // Código que se repete
+    // Executa SEMPRE pelo menos uma vez!
+} while (condição);</code></pre>
+
+                <p><strong>Note:</strong> Tem <strong>ponto e vírgula</strong> no final!</p>
+
+                <h3>📊 Comparação: while vs do-while</h3>
+                <div class="diagram">
+WHILE:
+1. Verifica condição
+2. Se verdadeira, executa bloco
+3. Volta para passo 1
+
+DO-WHILE:
+1. Executa bloco
+2. Verifica condição
+3. Se verdadeira, volta para passo 1
+                </div>
+
+                <h3>📚 Exemplos Práticos</h3>
+
+                <p><strong>Exemplo 1: Menu com do-while</strong></p>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int opcao;
+    
+    do {
+        printf("\n=== MENU ===\n");
+        printf("1. Opção A\n");
+        printf("2. Opção B\n");
+        printf("3. Sair\n");
+        printf("Escolha: ");
+        scanf("%d", &opcao);
+        
+        if (opcao == 1) {
+            printf("Você escolheu A\n");
+        } else if (opcao == 2) {
+            printf("Você escolheu B\n");
+        }
+    } while (opcao != 3);
+    
+    printf("Até logo!\n");
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Exemplo 2: Validação com Garantia de Execução</strong></p>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int nota;
+    
+    do {
+        printf("Digite uma nota (0-10): ");
+        scanf("%d", &nota);
+        
+        if (nota < 0 || nota > 10) {
+            printf("Nota inválida!\n");
+        }
+    } while (nota < 0 || nota > 10);
+    
+    printf("Nota aceita: %d\n", nota);
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Exemplo 3: Adivinhação</strong></p>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int numero = 5;  // Número secreto
+    int palpite;
+    
+    do {
+        printf("Adivinhe o número (1-10): ");
+        scanf("%d", &palpite);
+        
+        if (palpite < numero) {
+            printf("É maior!\n");
+        } else if (palpite > numero) {
+            printf("É menor!\n");
+        }
+    } while (palpite != numero);
+    
+    printf("Acertou! O número é %d\n", numero);
+    
+    return 0;
+}</code></pre>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Use `do-while` para menus e validações que precisam executar pelo menos uma vez!
+                </div>
+            </div>
+
+            <!-- Seção 4.4: Controle -->
+            <div id="controle" class="section">
+                <h2>4.4 Controle de Fluxo: break e continue</h2>
+
+                <h3>🛑 Comando break</h3>
+                <p>
+                    `break` interrompe o laço imediatamente, saindo dele completamente.
+                </p>
+
+                <h3>📚 Exemplo 1: Procurar Número e Sair</h3>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    for (int i = 1; i <= 10; i++) {
+        if (i == 5) {
+            printf("Encontrei o 5!\n");
+            break;  // Sai do laço
+        }
+        printf("%d ", i);
+    }
+    
+    printf("\nLaço terminado\n");
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Saída:</strong></p>
+                <pre><code>1 2 3 4 Encontrei o 5!
+Laço terminado</code></pre>
+
+                <h3>📚 Exemplo 2: Busca em Array</h3>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int numeros[] = {10, 20, 30, 40, 50};
+    int alvo = 30;
+    int encontrado = 0;
+    
+    for (int i = 0; i < 5; i++) {
+        if (numeros[i] == alvo) {
+            printf("Número %d encontrado na posição %d\n", alvo, i);
+            encontrado = 1;
+            break;
+        }
+    }
+    
+    if (!encontrado) {
+        printf("Número não encontrado\n");
+    }
+    
+    return 0;
+}</code></pre>
+
+                <h3>⏭️ Comando continue</h3>
+                <p>
+                    `continue` pula a iteração atual e vai para a próxima do laço.
+                </p>
+
+                <h3>📚 Exemplo 3: Pular Números Pares</h3>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    for (int i = 1; i <= 10; i++) {
+        if (i % 2 == 0) {
+            continue;  // Pula números pares
+        }
+        printf("%d ", i);
+    }
+    
+    printf("\n");
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Saída:</strong> <code>1 3 5 7 9</code></p>
+
+                <h3>📚 Exemplo 4: Validação em while</h3>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int numero;
+    int soma = 0;
+    int contador = 0;
+    
+    printf("Digite 5 números (ignore negativos):\n");
+    
+    while (contador < 5) {
+        printf("Número %d: ", contador + 1);
+        scanf("%d", &numero);
+        
+        if (numero < 0) {
+            printf("Negativo ignorado!\n");
+            continue;  // Pula para próxima iteração
+        }
+        
+        soma += numero;
+        contador++;
+    }
+    
+    printf("Soma: %d\n", soma);
+    
+    return 0;
+}</code></pre>
+
+                <h3>📊 Comparação: break vs continue</h3>
+                <table>
+                    <tr>
+                        <th>Comando</th>
+                        <th>O que faz</th>
+                        <th>Quando usar</th>
+                    </tr>
+                    <tr>
+                        <td><code>break</code></td>
+                        <td>Sai do laço completamente</td>
+                        <td>Quando encontra o que procura</td>
+                    </tr>
+                    <tr>
+                        <td><code>continue</code></td>
+                        <td>Pula a iteração atual</td>
+                        <td>Para ignorar certos valores</td>
+                    </tr>
+                </table>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> `break` = SaiR do laço | `continue` = Pular para próxima iteração!
+                </div>
+            </div>
+
+            <!-- Seção Exercícios -->
+            <div id="exercicios" class="section">
+                <h2>📝 Exercícios Práticos</h2>
+
+                <div class="exercise">
+                    <h4>Exercício 4.1: Soma de N Números</h4>
+                    <p>Crie um programa que:</p>
+                    <ul>
+                        <li>Peça quantos números o usuário quer digitar</li>
+                        <li>Leia N números usando um laço for</li>
+                        <li>Calcule e exiba a soma</li>
+                    </ul>
+                    <p><strong>Entrada:</strong> 3 números: 10, 20, 30</p>
+                    <p><strong>Saída:</strong> Soma = 60</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercício 4.2: Tabuada com Menu</h4>
+                    <p>Faça um programa que:</p>
+                    <ul>
+                        <li>Use um laço do-while para um menu</li>
+                        <li>Permita escolher de 1 a 10</li>
+                        <li>Mostre a tabuada do número escolhido</li>
+                        <li>Opção 11 para sair</li>
+                    </ul>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercício 4.3: Números Primos</h4>
+                    <p>Crie um programa que:</p>
+                    <ul>
+                        <li>Leia um número N</li>
+                        <li>Verifique se é primo (só divisível por 1 e por ele mesmo)</li>
+                        <li>Use laços para testar divisibilidade</li>
+                    </ul>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercício 4.4: Contagem Regressiva</h4>
+                    <p>Faça um programa que:</p>
+                    <ul>
+                        <li>Leia um número N</li>
+                        <li>Faça contagem regressiva usando while</li>
+                        <li>Exiba: N, N-1, N-2, ..., 0, BLASTOFF!</li>
+                    </ul>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercício 4.5: Análise de Números</h4>
+                    <p>Crie um programa que:</p>
+                    <ul>
+                        <li>Leia 5 números</li>
+                        <li>Conte quantos são positivos, negativos e zeros</li>
+                        <li>Use continue para pular zeros</li>
+                    </ul>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Use `break` e `continue` para tornar seus laços mais eficientes!
+                </div>
+            </div>
+
+            <!-- Seção Resumo -->
+            <div id="resumo" class="section">
+                <h2>✅ Resumo do Módulo</h2>
+
+                <div class="summary">
+                    <h3>O que aprendemos:</h3>
+                    <ul>
+                        <li>✅ Laço for para repetição com quantidade conhecida</li>
+                        <li>✅ Laço while para repetição com quantidade desconhecida</li>
+                        <li>✅ Laço do-while que executa pelo menos uma vez</li>
+                        <li>✅ Comando break para sair de um laço</li>
+                        <li>✅ Comando continue para pular iterações</li>
+                    </ul>
+                </div>
+
+                <div class="summary" style="background: #f0f7ff; border-left-color: #667eea; margin-top: 20px;">
+                    <h3>📚 Principais Pontos:</h3>
+                    <ul>
+                        <li><strong>for:</strong> Use quando sabe quantas repetições</li>
+                        <li><strong>while:</strong> Use quando NÃO sabe quantas repetições</li>
+                        <li><strong>do-while:</strong> Executa pelo menos uma vez, ideal para menus</li>
+                        <li><strong>break:</strong> Sai do laço completamente</li>
+                        <li><strong>continue:</strong> Pula para próxima iteração</li>
+                        <li><strong>Aninhamento:</strong> Possível combinar laços</li>
+                        <li><strong>Loop infinito:</strong> Cuidado! Sempre tenha saída</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 30px;">📊 Comparação de Laços</h3>
+                <table>
+                    <tr>
+                        <th>Laço</th>
+                        <th>Quando Usar</th>
+                        <th>Verificação</th>
+                        <th>Execução Mínima</th>
+                    </tr>
+                    <tr>
+                        <td><strong>for</strong></td>
+                        <td>Quantidade conhecida</td>
+                        <td>No início</td>
+                        <td>0 vezes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>while</strong></td>
+                        <td>Quantidade desconhecida</td>
+                        <td>No início</td>
+                        <td>0 vezes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>do-while</strong></td>
+                        <td>Menus e validação</td>
+                        <td>No final</td>
+                        <td>1 vez</td>
+                    </tr>
+                </table>
+
+                <h3 style="margin-top: 30px;">🚀 Próximos Passos</h3>
+                <p>
+                    Agora que você domina laços de repetição, estamos prontos para o <strong>Módulo 5</strong> - o último:
+                </p>
+                <ul>
+                    <li>Funções: como criar e usar</li>
+                    <li>Parâmetros e retorno</li>
+                    <li>Recursão (funções chamando a si mesmas)</li>
+                    <li>Escopo de variáveis</li>
+                </ul>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="voltarModulo()">← Módulo 3</button>
+                    <button class="btn btn-primary" onclick="completarModulo()">✅ Marcar como Concluído</button>
+                    <button class="btn btn-secondary" onclick="irProximoModulo()">Próximo Módulo →</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Curso Básico de Linguagem C</strong> | Módulo 4: Laços de Repetição</p>
+            <p style="color: #999; margin-top: 10px; font-size: 0.9em;">Continue estudando! 🚀</p>
+        </footer>
+    </div>
+
+    <script>
+        // Controlar navegação entre seções
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('.section');
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const sectionId = button.getAttribute('data-section');
+
+                // Remover classe active de todos os botões e seções
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                sections.forEach(section => section.classList.remove('active'));
+
+                // Adicionar classe active ao botão e seção clicados
+                button.classList.add('active');
+                document.getElementById(sectionId).classList.add('active');
+
+                // Atualizar progress bar
+                updateProgress();
+
+                // Scroll suave para o topo
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Função para atualizar a barra de progresso
+        function updateProgress() {
+            const activeSectionIndex = Array.from(sections).findIndex(s => s.classList.contains('active'));
+            const progress = ((activeSectionIndex + 1) / sections.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        // Função para completar o módulo
+        function completarModulo() {
+            alert('✅ Parabéns! Você completou o Módulo 4!\n\nAgora você está pronto para o Módulo 5: Funções - O último módulo do curso!');
+            localStorage.setItem('modulo4-concluido', 'true');
+        }
+
+        // Função para ir para o próximo módulo
+        function irProximoModulo() {
+            alert('🚀 Redirecionando para o Módulo 5...\n(Em breve disponível)');
+        }
+
+        // Função para voltar ao módulo anterior
+        function voltarModulo() {
+            alert('⬅️ Redirecionando para o Módulo 3...\n(Em breve disponível)');
+        }
+
+        // Inicializar progress bar
+        updateProgress();
+
+        // Teclado: Setas para navegação
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                const activeButton = document.querySelector('.nav-btn.active');
+                const nextButton = activeButton.parentElement.nextElementSibling?.querySelector('.nav-btn');
+                if (nextButton) nextButton.click();
+            } else if (e.key === 'ArrowLeft') {
+                const activeButton = document.querySelector('.nav-btn.active');
+                const prevButton = activeButton.parentElement.previousElementSibling?.querySelector('.nav-btn');
+                if (prevButton) prevButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
