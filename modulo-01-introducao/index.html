@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 1: Introdução à Linguagem C</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        nav {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        nav button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        nav button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        nav button.active {
+            background: #764ba2;
+            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+        }
+
+        .content {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            line-height: 1.5;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        pre code {
+            color: inherit;
+            background: none;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+
+        .exercise {
+            background: #f0f7ff;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .exercise h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .tip {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .tip strong {
+            color: #ff9800;
+        }
+
+        .summary {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .summary ul {
+            margin-left: 20px;
+        }
+
+        .summary li {
+            margin-bottom: 8px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        footer {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 5px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav button {
+                width: 100%;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            pre {
+                font-size: 0.9em;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Módulo 1: Introdução à Linguagem C</h1>
+            <p>Aprenda os fundamentos da linguagem C de forma interativa</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+        </header>
+
+        <nav>
+            <ul>
+                <li><button class="nav-btn active" data-section="historia">1.1 História</button></li>
+                <li><button class="nav-btn" data-section="ambiente">1.2 Ambiente</button></li>
+                <li><button class="nav-btn" data-section="hello-world">1.3 Hello World</button></li>
+                <li><button class="nav-btn" data-section="estrutura">1.4 Estrutura</button></li>
+                <li><button class="nav-btn" data-section="exercicios">📝 Exercícios</button></li>
+                <li><button class="nav-btn" data-section="resumo">✅ Resumo</button></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <!-- Seção 1.1: História -->
+            <div id="historia" class="section active">
+                <h2>1.1 História e Características do C</h2>
+
+                <h3>📖 História</h3>
+                <p>
+                    A linguagem C foi criada em <strong>1972</strong> por <strong>Dennis Ritchie</strong> nos laboratórios Bell. 
+                    Ela foi desenvolvida para escrever o sistema operacional <strong>Unix</strong> e tornou-se uma das 
+                    linguagens de programação mais influentes da história.
+                </p>
+                <p>
+                    Hoje, mais de 50 anos depois, C continua sendo amplamente utilizada em desenvolvimento de sistemas, 
+                    linguagens embarcadas e software de alto desempenho.
+                </p>
+
+                <h3>⭐ Características Principais</h3>
+                <table>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Descrição</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Simples e Eficiente</strong></td>
+                        <td>Poucos palavras-chave, sintaxe direta e direta ao ponto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rápida</strong></td>
+                        <td>Compila para código de máquina otimizado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Portável</strong></td>
+                        <td>Código escrito em C pode rodar em diferentes plataformas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Baixo Nível</strong></td>
+                        <td>Acesso direto à memória através de ponteiros</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Modular</strong></td>
+                        <td>Suporta programação estruturada com funções</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Amplamente Usada</strong></td>
+                        <td>Base para muitos sistemas operacionais e software crítico</td>
+                    </tr>
+                </table>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> C é considerada a "linguagem mãe" porque influenciou a criação de 
+                    muitas outras linguagens como C++, C#, Java e JavaScript.
+                </div>
+            </div>
+
+            <!-- Seção 1.2: Ambiente -->
+            <div id="ambiente" class="section">
+                <h2>1.2 Ambiente de Desenvolvimento</h2>
+
+                <h3>🛠️ Instalação do Compilador</h3>
+
+                <h3>Windows</h3>
+                <p><strong>Opção 1:</strong> Instalar <a href="http://www.mingw.org/" target="_blank">MinGW</a></p>
+                <p><strong>Opção 2:</strong> Usar Visual Studio ou Dev-C++</p>
+
+                <h3>Linux (Debian/Ubuntu)</h3>
+                <pre><code>sudo apt-get update
+sudo apt-get install gcc</code></pre>
+
+                <h3>macOS</h3>
+                <pre><code>xcode-select --install</code></pre>
+
+                <h3>✅ Verificar Instalação</h3>
+                <p>Em qualquer sistema, execute:</p>
+                <pre><code>gcc --version</code></pre>
+
+                <h3>📝 Editores e IDEs Recomendados</h3>
+                <ul style="margin-left: 20px; margin-bottom: 20px;">
+                    <li><strong>VS Code</strong> + C/C++ Extension - Editor moderno e leve</li>
+                    <li><strong>Code::Blocks</strong> - IDE completa e leve</li>
+                    <li><strong>Dev-C++</strong> - IDE simples e fácil de usar</li>
+                    <li><strong>Vim/Nano</strong> + terminal - Minimalista, para quem gosta</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>💡 Recomendação:</strong> Para iniciantes, recomendamos VS Code ou Code::Blocks 
+                    por terem interface amigável e bom suporte a debugging.
+                </div>
+            </div>
+
+            <!-- Seção 1.3: Hello World -->
+            <div id="hello-world" class="section">
+                <h2>1.3 Seu Primeiro Programa (Hello World)</h2>
+
+                <h3>📄 Criar o Arquivo</h3>
+                <p>Crie um arquivo chamado <code>hello.c</code> com o seguinte conteúdo:</p>
+
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    printf("Hello, World!\n");
+    return 0;
+}</code></pre>
+
+                <h3>🔨 Compilar</h3>
+                <pre><code>gcc hello.c -o hello</code></pre>
+
+                <h3>▶️ Executar</h3>
+                <p><strong>Linux/macOS:</strong></p>
+                <pre><code>./hello</code></pre>
+
+                <p><strong>Windows:</strong></p>
+                <pre><code>hello.exe</code></pre>
+
+                <h3>📤 Saída Esperada</h3>
+                <pre><code>Hello, World!</code></pre>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Se receber erro de compilação, verifique se o arquivo está salvo 
+                    corretamente e se o compilador está instalado!
+                </div>
+
+                <div class="exercise">
+                    <h4>Experimente:</h4>
+                    <p>Modifique o programa para exibir seu nome em vez de "World"!</p>
+                </div>
+            </div>
+
+            <!-- Seção 1.4: Estrutura -->
+            <div id="estrutura" class="section">
+                <h2>1.4 Estrutura Básica de um Programa em C</h2>
+
+                <p>Todo programa em C segue uma estrutura padrão. Veja o exemplo completo:</p>
+
+                <pre><code>// 1. Incluir bibliotecas
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+// 2. Definições de constantes (opcional)
+#define PI 3.14159
+
+// 3. Declaração de funções (opcional)
+void saudar();
+
+// 4. Função principal
+int main() {
+    // Corpo do programa
+    printf("Bem-vindo ao C!\n");
+    saudar();
+    
+    return 0;  // Retorna 0 indicando sucesso
+}
+
+// 5. Implementação de outras funções (opcional)
+void saudar() {
+    printf("Olá do C!\n");
+}</code></pre>
+
+                <h3>📋 Componentes Explicados</h3>
+                <table>
+                    <tr>
+                        <th>Componente</th>
+                        <th>Descrição</th>
+                    </tr>
+                    <tr>
+                        <td><code>#include</code></td>
+                        <td>Inclui bibliotecas necessárias</td>
+                    </tr>
+                    <tr>
+                        <td><code>#define</code></td>
+                        <td>Define constantes do preprocessador</td>
+                    </tr>
+                    <tr>
+                        <td><code>main()</code></td>
+                        <td>Função principal - ponto de início do programa</td>
+                    </tr>
+                    <tr>
+                        <td><code>printf()</code></td>
+                        <td>Função para exibir texto na tela</td>
+                    </tr>
+                    <tr>
+                        <td><code>return 0</code></td>
+                        <td>Indica que o programa terminou com sucesso</td>
+                    </tr>
+                    <tr>
+                        <td><code>//</code></td>
+                        <td>Comentário de linha única</td>
+                    </tr>
+                    <tr>
+                        <td><code>/* */</code></td>
+                        <td>Comentário de múltiplas linhas</td>
+                    </tr>
+                </table>
+
+                <h3>📚 Principais Bibliotecas</h3>
+                <table>
+                    <tr>
+                        <th>Biblioteca</th>
+                        <th>Uso</th>
+                    </tr>
+                    <tr>
+                        <td><code>stdio.h</code></td>
+                        <td>Entrada e saída padrão (printf, scanf)</td>
+                    </tr>
+                    <tr>
+                        <td><code>stdlib.h</code></td>
+                        <td>Funções gerais (malloc, free, rand)</td>
+                    </tr>
+                    <tr>
+                        <td><code>string.h</code></td>
+                        <td>Manipulação de strings</td>
+                    </tr>
+                    <tr>
+                        <td><code>math.h</code></td>
+                        <td>Funções matemáticas</td>
+                    </tr>
+                    <tr>
+                        <td><code>time.h</code></td>
+                        <td>Funções de data e hora</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Seção Exercícios -->
+            <div id="exercicios" class="section">
+                <h2>📝 Exercícios Práticos</h2>
+
+                <div class="exercise">
+                    <h4>Exercício 1.1: Modificar Hello World</h4>
+                    <p>Modifique o programa <code>hello.c</code> para exibir seu nome:</p>
+                    <pre><code>Hello, [seu nome]!</code></pre>
+                    <p><strong>Dica:</strong> Use a função <code>printf()</code> com seu nome.</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercício 1.2: Múltiplas Linhas</h4>
+                    <p>Crie um programa que exiba o seguinte padrão:</p>
+                    <pre><code>*
+**
+***
+****
+*****</code></pre>
+                    <p><strong>Dica:</strong> Use múltiplas linhas de <code>printf()</code>.</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercício 1.3: Usar Comentários</h4>
+                    <p>Reescreva o programa hello.c adicionando comentários explicativos em cada linha:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>O que cada linha faz</li>
+                        <li>Por que está lá</li>
+                        <li>Como poderia ser modificada</li>
+                    </ul>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Não copie e cole! Escreva o código manualmente para 
+                    familiarizar-se com a sintaxe.
+                </div>
+            </div>
+
+            <!-- Seção Resumo -->
+            <div id="resumo" class="section">
+                <h2>✅ Resumo do Módulo</h2>
+
+                <div class="summary">
+                    <h3>O que aprendemos:</h3>
+                    <ul>
+                        <li>✅ A história e importância da linguagem C</li>
+                        <li>✅ Como instalar um compilador e ambiente de desenvolvimento</li>
+                        <li>✅ Como criar e executar nosso primeiro programa</li>
+                        <li>✅ A estrutura básica de um programa em C</li>
+                        <li>✅ As principais bibliotecas padrão</li>
+                    </ul>
+                </div>
+
+                <div class="summary" style="background: #f0f7ff; border-left-color: #667eea; margin-top: 20px;">
+                    <h3>📚 Principais Pontos:</h3>
+                    <ul>
+                        <li>C foi criada em 1972 para desenvolver o Unix</li>
+                        <li>É uma linguagem simples, rápida e portável</li>
+                        <li>Todo programa começa com a função <code>main()</code></li>
+                        <li>Use <code>printf()</code> para exibir texto</li>
+                        <li>Sempre retorne 0 da função main para indicar sucesso</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 30px;">🚀 Próximos Passos</h3>
+                <p>
+                    Agora que você entende a estrutura básica, vamos para o <strong>Módulo 2</strong> onde aprenderemos sobre:
+                </p>
+                <ul style="margin-left: 20px; margin-bottom: 20px;">
+                    <li>Variáveis e tipos de dados</li>
+                    <li>Operadores aritméticos</li>
+                    <li>Como ler dados do usuário</li>
+                </ul>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="completarModulo()">✅ Marcar como Concluído</button>
+                    <button class="btn btn-secondary" onclick="irProximoModulo()">Próximo Módulo →</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Curso Básico de Linguagem C</strong> | Módulo 1: Introdução</p>
+            <p style="color: #999; margin-top: 10px; font-size: 0.9em;">Continue estudando! 🚀</p>
+        </footer>
+    </div>
+
+    <script>
+        // Controlar navegação entre seções
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('.section');
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const sectionId = button.getAttribute('data-section');
+
+                // Remover classe active de todos os botões e seções
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                sections.forEach(section => section.classList.remove('active'));
+
+                // Adicionar classe active ao botão e seção clicados
+                button.classList.add('active');
+                document.getElementById(sectionId).classList.add('active');
+
+                // Atualizar progress bar
+                updateProgress();
+
+                // Scroll suave para o topo
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Função para atualizar a barra de progresso
+        function updateProgress() {
+            const activeSectionIndex = Array.from(sections).findIndex(s => s.classList.contains('active'));
+            const progress = ((activeSectionIndex + 1) / sections.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        // Função para completar o módulo
+        function completarModulo() {
+            alert('✅ Parabéns! Você completou o Módulo 1!\n\nAgora você está pronto para o Módulo 2: Conceitos Fundamentais');
+            localStorage.setItem('modulo1-concluido', 'true');
+        }
+
+        // Função para ir para o próximo módulo
+        function irProximoModulo() {
+            alert('🚀 Redirecionando para o Módulo 2...\n(Em breve disponível)');
+        }
+
+        // Inicializar progress bar
+        updateProgress();
+
+        // Teclado: Setas para navegação
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                const activeButton = document.querySelector('.nav-btn.active');
+                const nextButton = activeButton.parentElement.nextElementSibling?.querySelector('.nav-btn');
+                if (nextButton) nextButton.click();
+            } else if (e.key === 'ArrowLeft') {
+                const activeButton = document.querySelector('.nav-btn.active');
+                const prevButton = activeButton.parentElement.previousElementSibling?.querySelector('.nav-btn');
+                if (prevButton) prevButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
