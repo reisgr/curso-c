@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 3: Estruturas de Controle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        nav {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        nav button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        nav button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        nav button.active {
+            background: #764ba2;
+            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+        }
+
+        .content {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            line-height: 1.5;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        pre code {
+            color: inherit;
+            background: none;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+
+        .exercise {
+            background: #f0f7ff;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .exercise h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .tip {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .tip strong {
+            color: #ff9800;
+        }
+
+        .summary {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .summary ul {
+            margin-left: 20px;
+        }
+
+        .summary li {
+            margin-bottom: 8px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        footer {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 5px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .diagram {
+            background: #f9f9f9;
+            border: 2px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-family: monospace;
+            text-align: center;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        .warning {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .warning strong {
+            color: #c62828;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav button {
+                width: 100%;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            pre {
+                font-size: 0.9em;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Módulo 3: Estruturas de Controle</h1>
+            <p>Aprenda a tomar decisões no seu código com if, else e switch</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+        </header>
+
+        <nav>
+            <ul>
+                <li><button class="nav-btn active" data-section="if-else">3.1 if-else</button></li>
+                <li><button class="nav-btn" data-section="switch">3.2 switch-case</button></li>
+                <li><button class="nav-btn" data-section="ternario">3.3 Ternário</button></li>
+                <li><button class="nav-btn" data-section="aninhadas">3.4 Aninhadas</button></li>
+                <li><button class="nav-btn" data-section="exercicios">📝 Exercícios</button></li>
+                <li><button class="nav-btn" data-section="resumo">✅ Resumo</button></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <!-- Seção 3.1: if-else -->
+            <div id="if-else" class="section active">
+                <h2>3.1 Estrutura if-else</h2>
+
+                <h3>🤔 O que é uma Estrutura de Controle?</h3>
+                <p>
+                    Estruturas de controle permitem que o programa tome decisões baseadas em condições. 
+                    Elas fazem o código seguir caminhos diferentes dependendo de se uma condição é verdadeira ou falsa.
+                </p>
+
+                <h3>📋 Estrutura if (Se)</h3>
+                <p>Executa um bloco de código SE uma condição for verdadeira:</p>
+                <pre><code>if (condição) {
+    // Código executado se a condição for verdadeira
+}</code></pre>
+
+                <p><strong>Exemplo:</strong></p>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int idade = 18;
+    
+    if (idade >= 18) {
+        printf("Você é maior de idade\n");
+    }
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Saída:</strong> <code>Você é maior de idade</code></p>
+
+                <h3>📋 Estrutura if-else (Se-Senão)</h3>
+                <p>Escolhe entre dois caminhos:</p>
+                <pre><code>if (condição) {
+    // Código se a condição for VERDADEIRA
+} else {
+    // Código se a condição for FALSA
+}</code></pre>
+
+                <p><strong>Exemplo:</strong></p>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int idade = 15;
+    
+    if (idade >= 18) {
+        printf("Você é maior de idade\n");
+    } else {
+        printf("Você é menor de idade\n");
+    }
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Saída:</strong> <code>Você é menor de idade</code></p>
+
+                <h3>📋 Estrutura if-else if-else (Se-Senão Se-Senão)</h3>
+                <p>Escolhe entre múltiplos caminhos:</p>
+                <pre><code>if (condição1) {
+    // Executado se condição1 for verdadeira
+} else if (condição2) {
+    // Executado se condição1 for falsa E condição2 for verdadeira
+} else if (condição3) {
+    // Executado se condição1 e 2 forem falsas E condição3 for verdadeira
+} else {
+    // Executado se todas as condições anteriores forem falsas
+}</code></pre>
+
+                <p><strong>Exemplo Completo - Classificação de Idade:</strong></p>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int idade;
+    
+    printf("Digite sua idade: ");
+    scanf("%d", &idade);
+    
+    if (idade < 13) {
+        printf("Você é uma criança\n");
+    } else if (idade < 18) {
+        printf("Você é um adolescente\n");
+    } else if (idade < 60) {
+        printf("Você é um adulto\n");
+    } else {
+        printf("Você é um idoso\n");
+    }
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Possíveis Saídas:</strong></p>
+                <ul>
+                    <li>Digite sua idade: 10 → Você é uma criança</li>
+                    <li>Digite sua idade: 16 → Você é um adolescente</li>
+                    <li>Digite sua idade: 35 → Você é um adulto</li>
+                    <li>Digite sua idade: 70 → Você é um idoso</li>
+                </ul>
+
+                <div class="diagram">
+FLUXOGRAMA if-else if-else
+
+    Idade < 13?
+        ├─ SIM → Criança
+        └─ NÃO → Idade < 18?
+                 ├─ SIM → Adolescente
+                 └─ NÃO → Idade < 60?
+                          ├─ SIM → Adulto
+                          └─ NÃO → Idoso
+                </div>
+
+                <h3>⚠️ Detalhes Importantes</h3>
+                <ul>
+                    <li>As chaves <code>{}</code> são opcionais se houver apenas UMA instrução</li>
+                    <li>Sempre use chaves para evitar erros (boa prática)</li>
+                    <li>Use <code>==</code> para comparação, não <code>=</code> para atribuição</li>
+                    <li>Indente o código para melhor legibilidade</li>
+                </ul>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Quando tiver múltiplas condições sobre a mesma variável (como no exemplo acima), 
+                    use if-else if-else em vez de vários if separados. É mais eficiente!
+                </div>
+            </div>
+
+            <!-- Seção 3.2: switch-case -->
+            <div id="switch" class="section">
+                <h2>3.2 Estrutura switch-case</h2>
+
+                <h3>🎛️ Quando Usar switch-case?</h3>
+                <p>
+                    A estrutura switch-case é ideal quando você precisa comparar uma variável com múltiplos valores constantes. 
+                    É mais limpa que vários if-else if.
+                </p>
+
+                <h3>📋 Sintaxe Básica</h3>
+                <pre><code>switch (expressão) {
+    case valor1:
+        // Código se expressão == valor1
+        break;
+    case valor2:
+        // Código se expressão == valor2
+        break;
+    case valor3:
+        // Código se expressão == valor3
+        break;
+    default:
+        // Código se nenhum case corresponder
+        break;
+}</code></pre>
+
+                <p><strong>Exemplo - Menu de Operações:</strong></p>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int opcao;
+    
+    printf("=== MENU ===\n");
+    printf("1. Soma\n");
+    printf("2. Subtração\n");
+    printf("3. Multiplicação\n");
+    printf("4. Sair\n");
+    printf("Escolha uma opção: ");
+    scanf("%d", &opcao);
+    
+    switch (opcao) {
+        case 1:
+            printf("Você escolheu Soma\n");
+            break;
+        case 2:
+            printf("Você escolheu Subtração\n");
+            break;
+        case 3:
+            printf("Você escolheu Multiplicação\n");
+            break;
+        case 4:
+            printf("Até logo!\n");
+            break;
+        default:
+            printf("Opção inválida!\n");
+            break;
+    }
+    
+    return 0;
+}</code></pre>
+
+                <h3>⚠️ A Importância do break</h3>
+                <p>
+                    O comando <code>break</code> interrompe a execução e sai do switch. 
+                    Se você esquecer, o código continuará executando o próximo case (fall-through).
+                </p>
+
+                <p><strong>Exemplo SEM break (errado):</strong></p>
+                <pre><code>switch (opcao) {
+    case 1:
+        printf("Um\n");
+        // Falta break aqui!
+    case 2:
+        printf("Dois\n");
+        break;
+}</code></pre>
+
+                <p>Se <code>opcao = 1</code>, a saída será:</p>
+                <pre><code>Um
+Dois</code></pre>
+
+                <p>Isso geralmente NÃO é o que você quer!</p>
+
+                <h3>✅ Exemplo COM break (correto):</h3>
+                <pre><code>switch (opcao) {
+    case 1:
+        printf("Um\n");
+        break;
+    case 2:
+        printf("Dois\n");
+        break;
+}</code></pre>
+
+                <p>Agora com <code>opcao = 1</code>, a saída será apenas:</p>
+                <pre><code>Um</code></pre>
+
+                <h3>🎯 Múltiplos Cases com Mesmo Código</h3>
+                <p>Você pode agrupar cases:</p>
+                <pre><code>switch (dia) {
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+        printf("Dia útil\n");
+        break;
+    case 6:
+    case 7:
+        printf("Fim de semana\n");
+        break;
+}</code></pre>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Use switch-case quando comparar UMA variável com MÚLTIPLOS valores. 
+                    Use if-else quando as condições forem mais complexas ou envolvam ranges.
+                </div>
+            </div>
+
+            <!-- Seção 3.3: Operador Ternário -->
+            <div id="ternario" class="section">
+                <h2>3.3 Operador Ternário</h2>
+
+                <h3>❓ O que é o Operador Ternário?</h3>
+                <p>
+                    O operador ternário (<code>?:</code>) é uma forma compacta de escrever um if-else. 
+                    É útil para atribuições rápidas baseadas em uma condição.
+                </p>
+
+                <h3>📋 Sintaxe</h3>
+                <pre><code>variável = (condição) ? valor_se_verdadeiro : valor_se_falso;</code></pre>
+
+                <h3>📊 Comparação</h3>
+                <p><strong>Usando if-else:</strong></p>
+                <pre><code>int idade = 20;
+int status;
+
+if (idade >= 18) {
+    status = 1;  // maior
+} else {
+    status = 0;  // menor
+}</code></pre>
+
+                <p><strong>Usando operador ternário:</strong></p>
+                <pre><code>int idade = 20;
+int status = (idade >= 18) ? 1 : 0;</code></pre>
+
+                <h3>💡 Exemplos Práticos</h3>
+
+                <p><strong>Exemplo 1: Maior entre dois números</strong></p>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int a = 10, b = 20;
+    int maior = (a > b) ? a : b;
+    
+    printf("Maior: %d\n", maior);  // Saída: Maior: 20
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Exemplo 2: Mensagem de Paridade</strong></p>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int numero = 7;
+    char *tipo = (numero % 2 == 0) ? "par" : "ímpar";
+    
+    printf("%d é %s\n", numero, tipo);  // Saída: 7 é ímpar
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Exemplo 3: Aninhado (menos recomendado)</strong></p>
+                <pre><code>int idade = 25;
+char *categoria = (idade < 18) ? "menor" : 
+                  (idade < 60) ? "adulto" : "idoso";
+
+printf("Categoria: %s\n", categoria);</code></pre>
+
+                <div class="warning">
+                    <strong>⚠️ Atenção:</strong> Ternários aninhados ficam difíceis de ler. 
+                    Evite mais de um nível de aninhamento. Use if-else nesses casos.
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Use o operador ternário para atribuições simples e rápidas. 
+                    Para lógica complexa, use if-else.
+                </div>
+            </div>
+
+            <!-- Seção 3.4: Estruturas Aninhadas -->
+            <div id="aninhadas" class="section">
+                <h2>3.4 Estruturas de Controle Aninhadas</h2>
+
+                <h3>🎯 O que são Estruturas Aninhadas?</h3>
+                <p>
+                    Estruturas aninhadas são aquelas dentro de outras. Você pode colocar um if dentro de outro if, 
+                    um switch dentro de um if, etc.
+                </p>
+
+                <h3>📋 Exemplo 1: if dentro de if</h3>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int idade = 25;
+    int renda = 3000;
+    
+    if (idade >= 18) {
+        printf("Você é maior de idade\n");
+        
+        if (renda >= 2000) {
+            printf("Você pode fazer um empréstimo\n");
+        } else {
+            printf("Renda insuficiente para empréstimo\n");
+        }
+    } else {
+        printf("Você é menor de idade\n");
+    }
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Saída:</strong></p>
+                <pre><code>Você é maior de idade
+Você pode fazer um empréstimo</code></pre>
+
+                <h3>📋 Exemplo 2: switch dentro de if</h3>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int mes = 3;
+    
+    if (mes >= 1 && mes <= 12) {
+        switch (mes) {
+            case 12:
+            case 1:
+            case 2:
+                printf("Verão\n");
+                break;
+            case 3:
+            case 4:
+            case 5:
+                printf("Outono\n");
+                break;
+            case 6:
+            case 7:
+            case 8:
+                printf("Inverno\n");
+                break;
+            case 9:
+            case 10:
+            case 11:
+                printf("Primavera\n");
+                break;
+        }
+    } else {
+        printf("Mês inválido\n");
+    }
+    
+    return 0;
+}</code></pre>
+
+                <p><strong>Saída:</strong> <code>Outono</code></p>
+
+                <h3>📋 Exemplo 3: Programa Completo - Validação de Nota</h3>
+                <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int nota;
+    
+    printf("Digite a nota (0-10): ");
+    scanf("%d", &nota);
+    
+    if (nota >= 0 && nota <= 10) {
+        if (nota >= 9) {
+            printf("Nota A - Excelente!\n");
+        } else if (nota >= 7) {
+            printf("Nota B - Bom!\n");
+        } else if (nota >= 5) {
+            printf("Nota C - Satisfatório\n");
+        } else {
+            printf("Nota F - Reprovado\n");
+        }
+    } else {
+        printf("Nota inválida! Digite um valor entre 0 e 10\n");
+    }
+    
+    return 0;
+}</code></pre>
+
+                <h3>🎯 Boas Práticas</h3>
+                <ul>
+                    <li>Indente corretamente (use 4 espaços ou 1 tab por nível)</li>
+                    <li>Evite aninhamento muito profundo (máximo 3-4 níveis)</li>
+                    <li>Se ficar complexo, considere usar funções</li>
+                    <li>Adicione comentários em lógica complexa</li>
+                </ul>
+
+                <div class="diagram">
+EXEMPLO DE ANINHAMENTO:
+
+if (condição1) {
+    ├─ if (condição2) {
+    │   ├─ código
+    │   └─ }
+    ├─ else if (condição3) {
+    │   ├─ código
+    │   └─ }
+    └─ }
+else {
+    ├─ switch (variável) {
+    │   ├─ case 1: ... break;
+    │   ├─ case 2: ... break;
+    │   └─ }
+    └─ }
+                </div>
+            </div>
+
+            <!-- Seção Exercícios -->
+            <div id="exercicios" class="section">
+                <h2>📝 Exercícios Práticos</h2>
+
+                <div class="exercise">
+                    <h4>Exercício 3.1: Maior entre 3 Números</h4>
+                    <p>Crie um programa que:</p>
+                    <ul>
+                        <li>Leia 3 números</li>
+                        <li>Encontre e exiba o maior</li>
+                    </ul>
+                    <p><strong>Entrada:</strong> 10, 25, 15</p>
+                    <p><strong>Saída esperada:</strong> O maior número é 25</p>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercício 3.2: Calculadora Simples com switch</h4>
+                    <p>Faça um programa que:</p>
+                    <ul>
+                        <li>Leia dois números</li>
+                        <li>Leia uma operação (1=+, 2=-, 3=*, 4=/)</li>
+                        <li>Use switch para fazer o cálculo</li>
+                        <li>Exiba o resultado</li>
+                    </ul>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercício 3.3: Classificação de Triângulo</h4>
+                    <p>Crie um programa que:</p>
+                    <ul>
+                        <li>Leia 3 lados de um triângulo</li>
+                        <li>Verifique se é válido (a+b>c, a+c>b, b+c>a)</li>
+                        <li>Se válido, classifique em: equilátero, isósceles ou escaleno</li>
+                    </ul>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercício 3.4: Validador de Senha</h4>
+                    <p>Faça um programa que:</p>
+                    <ul>
+                        <li>Leia uma senha</li>
+                        <li>Verifique se tem pelo menos 8 caracteres</li>
+                        <li>Valide contra senha esperada "senha123"</li>
+                        <li>Exiba mensagens apropriadas</li>
+                    </ul>
+                </div>
+
+                <div class="exercise">
+                    <h4>Exercício 3.5: Converter Mês em Número</h4>
+                    <p>Crie um programa que:</p>
+                    <ul>
+                        <li>Leia um número (1-12)</li>
+                        <li>Use switch para exibir o nome do mês</li>
+                        <li>Exiba "Mês inválido" se fora do intervalo</li>
+                    </ul>
+                </div>
+
+                <div class="tip">
+                    <strong>💡 Dica:</strong> Teste seus programas com casos extremos (limites, valores inválidos)!
+                </div>
+            </div>
+
+            <!-- Seção Resumo -->
+            <div id="resumo" class="section">
+                <h2>✅ Resumo do Módulo</h2>
+
+                <div class="summary">
+                    <h3>O que aprendemos:</h3>
+                    <ul>
+                        <li>✅ Estrutura if-else para decisões simples</li>
+                        <li>✅ if-else if-else para múltiplas condições</li>
+                        <li>✅ switch-case para múltiplos valores</li>
+                        <li>✅ Operador ternário para atribuições rápidas</li>
+                        <li>✅ Estruturas aninhadas</li>
+                    </ul>
+                </div>
+
+                <div class="summary" style="background: #f0f7ff; border-left-color: #667eea; margin-top: 20px;">
+                    <h3>📚 Principais Pontos:</h3>
+                    <ul>
+                        <li><strong>if:</strong> Executa se a condição for verdadeira</li>
+                        <li><strong>if-else:</strong> Escolhe entre dois caminhos</li>
+                        <li><strong>if-else if-else:</strong> Múltiplos caminhos</li>
+                        <li><strong>switch-case:</strong> Ideal para comparar com valores constantes</li>
+                        <li><strong>break:</strong> Crucial no switch para não executar cases seguintes</li>
+                        <li><strong>?:</strong> Operador ternário para lógica simples</li>
+                        <li><strong>Aninhamento:</strong> Possível mas evite profundidade excessiva</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 30px;">🚀 Próximos Passos</h3>
+                <p>
+                    Agora que você domina estruturas de controle, vamos para o <strong>Módulo 4</strong> onde aprenderemos:
+                </p>
+                <ul>
+                    <li>Laços de repetição (for, while, do-while)</li>
+                    <li>Como repetir blocos de código</li>
+                    <li>Controle de fluxo com break e continue</li>
+                </ul>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" onclick="voltarModulo()">← Módulo 2</button>
+                    <button class="btn btn-primary" onclick="completarModulo()">✅ Marcar como Concluído</button>
+                    <button class="btn btn-secondary" onclick="irProximoModulo()">Próximo Módulo →</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Curso Básico de Linguagem C</strong> | Módulo 3: Estruturas de Controle</p>
+            <p style="color: #999; margin-top: 10px; font-size: 0.9em;">Continue estudando! 🚀</p>
+        </footer>
+    </div>
+
+    <script>
+        // Controlar navegação entre seções
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('.section');
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const sectionId = button.getAttribute('data-section');
+
+                // Remover classe active de todos os botões e seções
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                sections.forEach(section => section.classList.remove('active'));
+
+                // Adicionar classe active ao botão e seção clicados
+                button.classList.add('active');
+                document.getElementById(sectionId).classList.add('active');
+
+                // Atualizar progress bar
+                updateProgress();
+
+                // Scroll suave para o topo
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Função para atualizar a barra de progresso
+        function updateProgress() {
+            const activeSectionIndex = Array.from(sections).findIndex(s => s.classList.contains('active'));
+            const progress = ((activeSectionIndex + 1) / sections.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        // Função para completar o módulo
+        function completarModulo() {
+            alert('✅ Parabéns! Você completou o Módulo 3!\n\nAgora você está pronto para o Módulo 4: Laços de Repetição');
+            localStorage.setItem('modulo3-concluido', 'true');
+        }
+
+        // Função para ir para o próximo módulo
+        function irProximoModulo() {
+            alert('🚀 Redirecionando para o Módulo 4...\n(Em breve disponível)');
+        }
+
+        // Função para voltar ao módulo anterior
+        function voltarModulo() {
+            alert('⬅️ Redirecionando para o Módulo 2...\n(Em breve disponível)');
+        }
+
+        // Inicializar progress bar
+        updateProgress();
+
+        // Teclado: Setas para navegação
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                const activeButton = document.querySelector('.nav-btn.active');
+                const nextButton = activeButton.parentElement.nextElementSibling?.querySelector('.nav-btn');
+                if (nextButton) nextButton.click();
+            } else if (e.key === 'ArrowLeft') {
+                const activeButton = document.querySelector('.nav-btn.active');
+                const prevButton = activeButton.parentElement.previousElementSibling?.querySelector('.nav-btn');
+                if (prevButton) prevButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
